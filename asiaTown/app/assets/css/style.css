@@ -1,0 +1,118 @@
+:root {
+  /* ------------------------------------------------------------------
+     SPACING SCALE
+     ------------------------------------------------------------------ */
+  --space-xs:   0.25rem;  /* 4px */
+  --space-sm:   0.5rem;   /* 8px */
+  --space-md:   1rem;     /* 16px */
+  --space-lg:   1.5rem;   /* 24px */
+  --space-xl:   2rem;     /* 32px */
+  --space-2xl:  3rem;     /* 48px */
+  --space-3xl:  4rem;     /* 64px */
+
+  /* ------------------------------------------------------------------
+     TYPOGRAPHY – FONT SIZES
+     ------------------------------------------------------------------ */
+  /* Headings – Desktop */
+  --font-h1-desktop: 3rem;     /* 48px */
+  --font-h2-desktop: 2.5rem;   /* 40px */
+  --font-h3-desktop: 2rem;     /* 32px */
+  --font-h4-desktop: 1.5rem;   /* 24px */
+
+  /* Headings – Mobile */
+  --font-h1-mobile: 2rem;      /* 32px */
+  --font-h2-mobile: 1.75rem;   /* 28px */
+  --font-h3-mobile: 1.5rem;    /* 24px */
+  --font-h4-mobile: 1.25rem;   /* 20px */
+
+  /* Body & UI text */
+  --font-body:    1rem;        /* 16px – default brødtekst */
+  --font-small:   0.875rem;    /* 14px – small text / labels */
+  --font-caption: 0.75rem;     /* 12px – caption / breadcrumbs */
+
+  /* ------------------------------------------------------------------
+     TYPOGRAPHY – FONT WEIGHTS
+     ------------------------------------------------------------------ */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* Specifikke roller */
+  --weight-h1:         var(--weight-bold);       /* 700 */
+  --weight-h2:         var(--weight-semibold);   /* 600 */
+  --weight-h3:         var(--weight-semibold);   /* 600 */
+  --weight-h4:         var(--weight-medium);     /* 500 */
+  --weight-body:       var(--weight-regular);    /* 400 */
+  --weight-button:     var(--weight-semibold);   /* 600–700 */
+  --weight-nav:        var(--weight-medium);     /* 500 */
+  --weight-label:      var(--weight-medium);     /* 500 */
+  --weight-breadcrumb: var(--weight-medium);     /* 500 */
+
+  /* ------------------------------------------------------------------
+     SPACING MELLEM TEKST (hierarki)
+     ------------------------------------------------------------------ */
+  --space-h1-to-content: var(--space-lg);  /* 24px */
+  --space-h2-to-content: var(--space-md);  /* 16px */
+  --space-h3-to-content: var(--space-md);  /* 16px */
+  --space-paragraph:     var(--space-md);  /* 16px mellem afsnit */
+  --space-label-input:   var(--space-sm);  /*  8px label → input */
+
+  /* ------------------------------------------------------------------
+     KOMPONENT-TOKENS
+     ------------------------------------------------------------------ */
+
+  /* Breadcrumbs */
+  --breadcrumb-font-size: var(--font-small); /* 14px */
+  --breadcrumb-gap:       var(--space-xs);   /*  4px */
+
+  /* Sections */
+  --section-padding-y: var(--space-3xl);  /* 64px top/bottom */
+  --section-gap:       var(--space-3xl);  /* 64px mellem sektioner */
+
+  /* Content width */
+  --content-width-text: 50rem;   /* 800px – læsbar tekst */
+}
+
+/* ==========================================================================
+   MOBILE OVERRIDES – Headings skaleres ned
+   ========================================================================== */
+@media (max-width: 48rem) { /* 768px */
+  :root {
+    --font-h1-desktop: var(--font-h1-mobile); /* 32px */
+    --font-h2-desktop: var(--font-h2-mobile); /* 28px */
+    --font-h3-desktop: var(--font-h3-mobile); /* 24px */
+    --font-h4-desktop: var(--font-h4-mobile); /* 20px */
+  }
+}
+
+/* ==========================================================================
+   EKSEMPEL PÅ ANVENDELSE (kan slettes)
+   ========================================================================== */
+/*
+  h1 {
+    font-size: var(--font-h1-desktop);
+    font-weight: var(--weight-h1);
+    margin-bottom: var(--space-h1-to-content);
+  }
+
+  .card {
+    padding: var(--card-padding);
+  }
+
+  .card-grid {
+    display: grid;
+    gap: var(--card-gap);
+  }
+
+  .button {
+    padding: var(--button-padding-y) var(--button-padding-x);
+    font-size: var(--button-font-size);
+    font-weight: var(--button-weight);
+  }
+
+  section {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+  }
+*/
