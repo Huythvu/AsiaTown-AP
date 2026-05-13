@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "products",
+  "collectionName": "recipes",
   "info": {
-    "singularName": "product",
-    "pluralName": "products",
-    "displayName": "Product"
+    "singularName": "recipe",
+    "pluralName": "recipes",
+    "displayName": "Recipe"
   },
   "options": {
     "draftAndPublish": true
