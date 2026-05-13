@@ -1,59 +1,88 @@
 <script setup>
 const STRAPI_URL = 'https://diplomatic-friend-1bce2a96ef.strapiapp.com'
 
-// Filter state — arrays now since we support multiple selections
+// Filter state
 const search = ref('')
 const selectedCategories = ref([])
 const selectedCountries = ref([])
 const selectedBrands = ref([])
-const selectedTypes = ref([])
 
-// Fetch filter options
-const { data: categoriesRes } = await useFetch(`${STRAPI_URL}/api/kategoriers`, { key: 'categories' })
-const { data: countriesRes } = await useFetch(`${STRAPI_URL}/api/lands`, { key: 'countries' })
-const { data: brandsRes } = await useFetch(`${STRAPI_URL}/api/brands`, { key: 'brands' })
-const { data: typesRes } = await useFetch(`${STRAPI_URL}/api/types`, { key: 'types' })
-
-const categories = computed(() => categoriesRes.value?.data ?? [])
-const countries = computed(() => countriesRes.value?.data ?? [])
-const brands = computed(() => brandsRes.value?.data ?? [])
-const types = computed(() => typesRes.value?.data ?? [])
-
-// Build query — uses $in for multi-select (matches ANY of the selected values)
-const productQuery = computed(() => {
-  const q = { populate: '*' }
-
-  if (search.value) {
-    q['filters[Title][$containsi]'] = search.value
-  }
-
-  // For arrays, Strapi expects filters[field][$in][0]=val1&filters[field][$in][1]=val2
-  selectedCategories.value.forEach((val, i) => {
-    q[`filters[kategorier][Kategori][$in][${i}]`] = val
-  })
-  selectedCountries.value.forEach((val, i) => {
-    q[`filters[land][Land][$in][${i}]`] = val
-  })
-  selectedBrands.value.forEach((val, i) => {
-    q[`filters[brand][Brand][$in][${i}]`] = val
-  })
-  selectedTypes.value.forEach((val, i) => {
-    q[`filters[type][Type][$in][${i}]`] = val
-  })
-
-  return q
-})
-
-const { data: response, pending, error } = await useFetch(
+// Hent ALLE produkter én gang — bruges til at beregne counts og filtrere lokalt
+const { data: allProductsRes } = await useFetch(
   `${STRAPI_URL}/api/products`,
   {
-    key: 'products',
-    query: productQuery,
-    watch: [productQuery],
+    key: 'all-products',
+    query: { populate: '*', 'pagination[pageSize]': 1000 },
   }
 )
+const allProducts = computed(() => allProductsRes.value?.data ?? [])
 
-const products = computed(() => response.value?.data ?? [])
+// Filter-funktion: returnerer hvilke produkter der ville matche givet et sæt filtre
+const matchesFilters = (product, filters) => {
+  if (filters.search && !product.Title?.toLowerCase().includes(filters.search.toLowerCase())) {
+    return false
+  }
+  if (filters.categories?.length) {
+    const productCats = (product.kategoriers ?? []).map(k => k.Kategori)
+    if (!filters.categories.some(c => productCats.includes(c))) return false
+  }
+  if (filters.countries?.length) {
+    if (!product.land || !filters.countries.includes(product.land.Land)) return false
+  }
+  if (filters.brands?.length) {
+    if (!product.brand || !filters.brands.includes(product.brand.Brand)) return false
+  }
+  return true
+}
+
+// Beregn counts: for hver filter-option, hvor mange matcher
+// hvis vi tilføjede netop den option til de øvrige aktive filtre?
+const countFor = (filterKey, optionValue) => {
+  const testFilters = {
+    search: search.value,
+    categories: filterKey === 'categories' ? [optionValue] : selectedCategories.value,
+    countries: filterKey === 'countries' ? [optionValue] : selectedCountries.value,
+    brands: filterKey === 'brands' ? [optionValue] : selectedBrands.value,
+  }
+  return allProducts.value.filter(p => matchesFilters(p, testFilters)).length
+}
+
+// Filtrerede produkter
+const filteredProducts = computed(() => {
+  return allProducts.value.filter(p => matchesFilters(p, {
+    search: search.value,
+    categories: selectedCategories.value,
+    countries: selectedCountries.value,
+    brands: selectedBrands.value,
+  }))
+})
+
+// Saml unikke filter-optioner fra produktdata
+const allCategories = computed(() => {
+  const map = new Map()
+  allProducts.value.forEach(p => {
+    (p.kategoriers ?? []).forEach(k => {
+      if (!map.has(k.Kategori)) map.set(k.Kategori, k)
+    })
+  })
+  return Array.from(map.values()).sort((a, b) => a.Kategori.localeCompare(b.Kategori))
+})
+
+const allCountries = computed(() => {
+  const map = new Map()
+  allProducts.value.forEach(p => {
+    if (p.land && !map.has(p.land.Land)) map.set(p.land.Land, p.land)
+  })
+  return Array.from(map.values()).sort((a, b) => a.Land.localeCompare(b.Land))
+})
+
+const allBrands = computed(() => {
+  const map = new Map()
+  allProducts.value.forEach(p => {
+    if (p.brand && !map.has(p.brand.Brand)) map.set(p.brand.Brand, p.brand)
+  })
+  return Array.from(map.values()).sort((a, b) => a.Brand.localeCompare(b.Brand))
+})
 
 // Helpers
 const getImageUrl = (product) => {
@@ -74,23 +103,19 @@ const resetFilters = () => {
   selectedCategories.value = []
   selectedCountries.value = []
   selectedBrands.value = []
-  selectedTypes.value = []
 }
 
 const hasActiveFilters = computed(() =>
   !!(search.value
     || selectedCategories.value.length
     || selectedCountries.value.length
-    || selectedBrands.value.length
-    || selectedTypes.value.length)
+    || selectedBrands.value.length)
 )
 
-// Count active filters for display
 const activeFilterCount = computed(() =>
   selectedCategories.value.length
   + selectedCountries.value.length
   + selectedBrands.value.length
-  + selectedTypes.value.length
   + (search.value ? 1 : 0)
 )
 </script>
@@ -131,10 +156,10 @@ const activeFilterCount = computed(() =>
         </div>
 
         <!-- Categories -->
-        <div v-if="categories.length" style="margin-bottom: 1.25rem;">
+        <div v-if="allCategories.length" style="margin-bottom: 1.25rem;">
           <h3 style="font-size: 0.875rem; margin: 0 0 0.5rem;">Kategori</h3>
           <label
-            v-for="cat in categories"
+            v-for="cat in allCategories"
             :key="cat.documentId"
             style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; cursor: pointer; font-size: 0.9rem;"
           >
@@ -143,15 +168,16 @@ const activeFilterCount = computed(() =>
               type="checkbox"
               :value="cat.Kategori"
             />
-            {{ cat.Kategori }}
+            <span style="flex: 1;">{{ cat.Kategori }}</span>
+            <span style="color: #999; font-size: 0.8rem;">({{ countFor('categories', cat.Kategori) }})</span>
           </label>
         </div>
 
         <!-- Countries -->
-        <div v-if="countries.length" style="margin-bottom: 1.25rem;">
+        <div v-if="allCountries.length" style="margin-bottom: 1.25rem;">
           <h3 style="font-size: 0.875rem; margin: 0 0 0.5rem;">Land</h3>
           <label
-            v-for="c in countries"
+            v-for="c in allCountries"
             :key="c.documentId"
             style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; cursor: pointer; font-size: 0.9rem;"
           >
@@ -160,15 +186,16 @@ const activeFilterCount = computed(() =>
               type="checkbox"
               :value="c.Land"
             />
-            {{ c.Land }}
+            <span style="flex: 1;">{{ c.Land }}</span>
+            <span style="color: #999; font-size: 0.8rem;">({{ countFor('countries', c.Land) }})</span>
           </label>
         </div>
 
         <!-- Brands -->
-        <div v-if="brands.length" style="margin-bottom: 1.25rem;">
+        <div v-if="allBrands.length">
           <h3 style="font-size: 0.875rem; margin: 0 0 0.5rem;">Brand</h3>
           <label
-            v-for="b in brands"
+            v-for="b in allBrands"
             :key="b.documentId"
             style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; cursor: pointer; font-size: 0.9rem;"
           >
@@ -177,42 +204,24 @@ const activeFilterCount = computed(() =>
               type="checkbox"
               :value="b.Brand"
             />
-            {{ b.Brand }}
-          </label>
-        </div>
-
-        <!-- Types -->
-        <div v-if="types.length">
-          <h3 style="font-size: 0.875rem; margin: 0 0 0.5rem;">Type</h3>
-          <label
-            v-for="t in types"
-            :key="t.documentId"
-            style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; cursor: pointer; font-size: 0.9rem;"
-          >
-            <input
-              v-model="selectedTypes"
-              type="checkbox"
-              :value="t.Type"
-            />
-            {{ t.Type }}
+            <span style="flex: 1;">{{ b.Brand }}</span>
+            <span style="color: #999; font-size: 0.8rem;">({{ countFor('brands', b.Brand) }})</span>
           </label>
         </div>
       </aside>
 
       <!-- Results -->
       <section>
-        <p v-if="pending" style="color: #666;">Indlæser...</p>
-        <p v-else-if="error" style="color: red;">Fejl: {{ error.message }}</p>
-        <p v-else-if="!products.length" style="color: #666; padding: 2rem; text-align: center; background: #f8f8f8; border-radius: 8px;">
+        <p v-if="!filteredProducts.length" style="color: #666; padding: 2rem; text-align: center; background: #f8f8f8; border-radius: 8px;">
           Ingen produkter matcher dine filtre.
         </p>
 
         <div v-else>
-          <p style="color: #666; margin: 0 0 1rem;">{{ products.length }} produkt(er)</p>
+          <p style="color: #666; margin: 0 0 1rem;">{{ filteredProducts.length }} produkt(er)</p>
 
           <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;">
             <li
-              v-for="product in products"
+              v-for="product in filteredProducts"
               :key="product.documentId"
               style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;"
             >
@@ -244,7 +253,7 @@ const activeFilterCount = computed(() =>
                   <span v-if="product.land" style="background: #d4edda; color: #155724; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.75rem;">
                     {{ product.land.Land }}
                   </span>
-                  <span v-for="kat in product.kategorier" :key="kat.documentId" style="background: #d4edda; color: #155724; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.75rem;">
+                  <span v-for="kat in product.kategoriers" :key="kat.documentId" style="background: #d4edda; color: #155724; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.75rem;">
                     {{ kat.Kategori }}
                   </span>
                 </div>
