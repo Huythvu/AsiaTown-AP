@@ -14,6 +14,15 @@
     "Title": {
       "type": "string"
     },
+    "Naeringsindhold": {
+      "type": "text"
+    },
+    "ProduktBeskrivelse": {
+      "type": "text"
+    },
+    "Pris": {
+      "type": "decimal"
+    },
     "Image": {
       "type": "media",
       "multiple": true,
@@ -28,8 +37,11 @@
       "type": "uid",
       "targetField": "Title"
     },
-    "Description": {
-      "type": "text"
+    "recipes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe.recipe",
+      "inversedBy": "products"
     }
   }
 }
