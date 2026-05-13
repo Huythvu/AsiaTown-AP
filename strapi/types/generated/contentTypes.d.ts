@@ -618,6 +618,7 @@ export interface ApiKategoriKategori extends Struct.CollectionTypeSchema {
       'api::kategori.kategori'
     > &
       Schema.Attribute.Private;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -661,6 +662,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    brand: Schema.Attribute.Relation<'oneToOne', 'api::brand.brand'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -668,6 +670,11 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    kategorier: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::kategori.kategori'
+    >;
+    land: Schema.Attribute.Relation<'oneToOne', 'api::land.land'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -681,6 +688,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     recipes: Schema.Attribute.Relation<'manyToMany', 'api::recipe.recipe'>;
     Slug: Schema.Attribute.UID<'Title'>;
     Title: Schema.Attribute.String;
+    type: Schema.Attribute.Relation<'oneToOne', 'api::type.type'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

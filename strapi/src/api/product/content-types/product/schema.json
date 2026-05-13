@@ -42,6 +42,27 @@
       "relation": "manyToMany",
       "target": "api::recipe.recipe",
       "inversedBy": "products"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::brand.brand"
+    },
+    "kategorier": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::kategori.kategori",
+      "mappedBy": "product"
+    },
+    "land": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::land.land"
+    },
+    "type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::type.type"
     }
   }
 }
