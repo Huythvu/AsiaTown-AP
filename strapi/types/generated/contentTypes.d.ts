@@ -605,12 +605,12 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiProduktProdukt extends Struct.CollectionTypeSchema {
-  collectionName: 'produkts';
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
   info: {
-    displayName: 'Produkt';
-    pluralName: 'produkts';
-    singularName: 'produkt';
+    displayName: 'Product';
+    pluralName: 'products';
+    singularName: 'product';
   };
   options: {
     draftAndPublish: true;
@@ -620,11 +620,14 @@ export interface ApiProduktProdukt extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Description: Schema.Attribute.Text;
-    Image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::produkt.produkt'
+      'api::product.product'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
@@ -1152,7 +1155,7 @@ declare module '@strapi/strapi' {
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
-      'api::produkt.produkt': ApiProduktProdukt;
+      'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

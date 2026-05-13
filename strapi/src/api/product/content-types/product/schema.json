@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "produkts",
+  "collectionName": "products",
   "info": {
-    "singularName": "produkt",
-    "pluralName": "produkts",
-    "displayName": "Produkt"
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product"
   },
   "options": {
     "draftAndPublish": true
@@ -23,7 +23,7 @@
     },
     "Image": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "allowedTypes": [
         "images",
         "files",
