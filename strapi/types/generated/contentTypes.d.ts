@@ -618,7 +618,7 @@ export interface ApiKategoriKategori extends Struct.CollectionTypeSchema {
       'api::kategori.kategori'
     > &
       Schema.Attribute.Private;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -670,8 +670,8 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    kategorier: Schema.Attribute.Relation<
-      'oneToMany',
+    kategoriers: Schema.Attribute.Relation<
+      'manyToMany',
       'api::kategori.kategori'
     >;
     land: Schema.Attribute.Relation<'oneToOne', 'api::land.land'>;

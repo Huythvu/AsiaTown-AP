@@ -48,11 +48,11 @@
       "relation": "oneToOne",
       "target": "api::brand.brand"
     },
-    "kategorier": {
+    "kategoriers": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::kategori.kategori",
-      "mappedBy": "product"
+      "mappedBy": "products"
     },
     "land": {
       "type": "relation",
