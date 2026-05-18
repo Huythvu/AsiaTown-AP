@@ -59,10 +59,11 @@
       "relation": "oneToOne",
       "target": "api::land.land"
     },
-    "type": {
+    "types": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::type.type"
+      "relation": "manyToMany",
+      "target": "api::type.type",
+      "inversedBy": "products"
     }
   }
 }

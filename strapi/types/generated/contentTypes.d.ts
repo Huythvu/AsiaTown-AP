@@ -688,7 +688,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     recipes: Schema.Attribute.Relation<'manyToMany', 'api::recipe.recipe'>;
     Slug: Schema.Attribute.UID<'Title'>;
     Title: Schema.Attribute.String;
-    type: Schema.Attribute.Relation<'oneToOne', 'api::type.type'>;
+    types: Schema.Attribute.Relation<'manyToMany', 'api::type.type'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -747,6 +747,7 @@ export interface ApiTypeType extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::type.type'> &
       Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     Type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
