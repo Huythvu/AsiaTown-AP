@@ -36,6 +36,16 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "mappedBy": "recipes"
+    },
+    "Ingrediens": {
+      "type": "component",
+      "component": "recipes.ingredients",
+      "repeatable": true
+    },
+    "Step": {
+      "type": "component",
+      "component": "recipes.steps",
+      "repeatable": true
     }
   }
 }

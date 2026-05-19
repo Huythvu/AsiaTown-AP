@@ -1,5 +1,31 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface RecipesIngredients extends Struct.ComponentSchema {
+  collectionName: 'components_recipes_ingredients';
+  info: {
+    displayName: 'Ingredients';
+    icon: 'restaurant';
+  };
+  attributes: {
+    Amount: Schema.Attribute.Decimal;
+    Ingredient: Schema.Attribute.String;
+    unit: Schema.Attribute.Enumeration<
+      ['g', 'kg', 'ml', 'l', 'tsk', 'spsk', 'stk', 'knsp']
+    >;
+  };
+}
+
+export interface RecipesSteps extends Struct.ComponentSchema {
+  collectionName: 'components_recipes_steps';
+  info: {
+    displayName: 'Steps';
+    icon: 'book';
+  };
+  attributes: {
+    Step: Schema.Attribute.Text;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -8,30 +34,6 @@ export interface SharedMedia extends Struct.ComponentSchema {
   };
   attributes: {
     file: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-  };
-}
-
-export interface SharedQuote extends Struct.ComponentSchema {
-  collectionName: 'components_shared_quotes';
-  info: {
-    displayName: 'Quote';
-    icon: 'indent';
-  };
-  attributes: {
-    body: Schema.Attribute.Text;
-    title: Schema.Attribute.String;
-  };
-}
-
-export interface SharedRichText extends Struct.ComponentSchema {
-  collectionName: 'components_shared_rich_texts';
-  info: {
-    description: '';
-    displayName: 'Rich text';
-    icon: 'align-justify';
-  };
-  attributes: {
-    body: Schema.Attribute.RichText;
   };
 }
 
@@ -65,9 +67,9 @@ export interface SharedSlider extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'recipes.ingredients': RecipesIngredients;
+      'recipes.steps': RecipesSteps;
       'shared.media': SharedMedia;
-      'shared.quote': SharedQuote;
-      'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
     }

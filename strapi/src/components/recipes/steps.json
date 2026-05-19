@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_recipes_steps",
+  "info": {
+    "displayName": "Steps",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "Step": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}
