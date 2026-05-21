@@ -6,7 +6,10 @@
   },
   "options": {},
   "attributes": {
-    "Step": {
+    "Overskrift": {
+      "type": "string"
+    },
+    "Instruktion": {
       "type": "text"
     }
   },

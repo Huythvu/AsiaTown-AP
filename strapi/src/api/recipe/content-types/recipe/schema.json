@@ -46,6 +46,22 @@
       "type": "component",
       "component": "recipes.steps",
       "repeatable": true
+    },
+    "Difficulty": {
+      "type": "enumeration",
+      "enum": [
+        "Let",
+        "Mellem",
+        "Svær"
+      ]
+    },
+    "AntalPersoner": {
+      "type": "integer"
+    },
+    "Tid": {
+      "type": "component",
+      "component": "recipes.time-taken",
+      "repeatable": false
     }
   }
 }

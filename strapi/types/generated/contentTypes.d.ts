@@ -702,10 +702,12 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    AntalPersoner: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Description: Schema.Attribute.Text;
+    Difficulty: Schema.Attribute.Enumeration<['Let', 'Mellem', 'Sv\u00E6r']>;
     Image: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -721,6 +723,7 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     Slug: Schema.Attribute.UID<'Title'>;
     Step: Schema.Attribute.Component<'recipes.steps', true>;
+    Tid: Schema.Attribute.Component<'recipes.time-taken', false>;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

@@ -22,7 +22,19 @@ export interface RecipesSteps extends Struct.ComponentSchema {
     icon: 'book';
   };
   attributes: {
-    Step: Schema.Attribute.Text;
+    Instruktion: Schema.Attribute.Text;
+    Overskrift: Schema.Attribute.String;
+  };
+}
+
+export interface RecipesTimeTaken extends Struct.ComponentSchema {
+  collectionName: 'components_recipes_time_takens';
+  info: {
+    displayName: 'Time taken';
+  };
+  attributes: {
+    Tid: Schema.Attribute.Integer;
+    Unit: Schema.Attribute.Enumeration<['Minutter', 'Timer']>;
   };
 }
 
@@ -69,6 +81,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'recipes.ingredients': RecipesIngredients;
       'recipes.steps': RecipesSteps;
+      'recipes.time-taken': RecipesTimeTaken;
       'shared.media': SharedMedia;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
