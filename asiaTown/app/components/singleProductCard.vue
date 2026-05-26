@@ -8,7 +8,6 @@ defineProps({
 </script>
 
 <template>
-    
     <div class="product-card">
         <div class="product-card__image-wrapper">
             <NuxtImg :src="product.imageSmall ?? product.image" :alt="product.title" class="product-card__image" />
@@ -60,16 +59,13 @@ main {
 
 .product-card__category {
     font-size: var(--font-small);
-    margin: 0;
 }
 
 .product-card__title {
     font-size: var(--font-h4-desktop);
-    margin: 0;
 }
 
 .product-card__price {
     font-size: var(--font-h4-desktop);
-    margin: 0;
 }
 </style>
