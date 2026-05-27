@@ -29,8 +29,7 @@
     </div>
 
     <div class="recipe-grid">
-      <Recipe />
-      <Recipe />
+      <Recipe slug="pho-bo" /> <Recipe />
       <Recipe />
       <Recipe />
     </div>

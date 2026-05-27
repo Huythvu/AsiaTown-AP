@@ -1,6 +1,7 @@
 <script setup>
 defineProps({
   title: String,
+  slug: String,
   description: String,
   image: String,
   time: String,
@@ -9,7 +10,7 @@ defineProps({
 });
 </script>
 <template>
-  <NuxtLink to="/recipe/pho-bo" class="card-link">
+  <NuxtLink :to="`/recipes/${slug}`" class="card-link">
     <article class="recipe-card">
       <div class="image-wrapper">
         <img
