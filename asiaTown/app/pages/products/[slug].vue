@@ -43,7 +43,7 @@ const relatedProducts = [
 </script>
 
 <template>
-    <main class="page">
+    <main>
         <nav class="breadcrumbs">
             <p>Breadcrumbs Later Fix</p>
         </nav>
@@ -67,7 +67,7 @@ const relatedProducts = [
             </div>
         </section>
 
-        <section class="section">
+        <section class="recipe">
             <h2>Opskrifter med dette produkt</h2>
 
             <div class="recipe-grid">
@@ -78,75 +78,66 @@ const relatedProducts = [
             </div>
         </section>
 
-        <section class="section">
+        <section class="related">
             <h2>Relaterede produkter</h2>
 
-            <div class="product-grid">
+            <div class="related-grid">
                 <SingleProductCard v-for="product in relatedProducts" :key="product.title" :product="product" />
             </div>
         </section>
     </main>
+    <Footer/>
 </template>
 
 <style scoped>
-.page {
-    /* max-width: 1440px;
-    margin: 0 auto;
-    padding: 16px 64px 64px; */
-
-    /* Move to style.css later */
-    /* background: #fff; */
-    /* color: #1a1a1a; */
-}
-
 .breadcrumbs {
     margin-bottom: var(--space-md);
 }
 
 .product {
-  display: grid;
-  grid-template-columns: minmax(300px, 720px) minmax(300px, 1fr);
-  gap: clamp(32px, 5vw, 64px);
-  margin-bottom: 64px;
+    display: grid;
+    grid-template-columns: minmax(300px, 1.2fr) minmax(300px, 1fr);
+    gap: clamp(32px, 5vw, 64px);
 }
 
 .product-img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-img img {
-  max-width:60%;
-  height: auto;
-  object-fit: contain;
+    max-width: 60%;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-info{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 .brand {
-    margin-bottom: 16px;
-    font-size: 14px;
-    font-weight: 500;
-
-    /* color: #4f4f4f; */
+    font-size: var(--font-small);
+    font-weight: var(--weight-medium);
+    /* color: #4f4f4f;  CHANGE WHEN EVER ROOT COLORS ADDED*/
 }
 
-h1 {
-    margin-bottom: 16px;
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 1.5;
+.recipe, .related{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 .price {
-    margin-bottom: 16px;
-    font-size: 32px;
-    font-weight: 600;
+    font-size: var(--font-h3-desktop);
+    font-weight: var(--weight-semibold);
 }
 
 .tabs {
     display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
+    gap: var(--space-lg);
     border-top: 1px solid;
     border-bottom: 1px solid;
     /* border-color: #e5e5e5; */
@@ -157,8 +148,8 @@ h1 {
     padding: 16px 0 12px;
     border: 0;
     background: none;
-    font-size: 24px;
-    font-weight: 500;
+    font-size: var(--font-h4-desktop);
+    font-weight: var(--weight-medium);
     cursor: pointer;
 }
 
@@ -174,22 +165,22 @@ h1 {
 }
 
 .recipe-grid,
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-lg);
+}
+
+.recipe-grid article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 .recipe-grid img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 6px;
 }
 </style>
