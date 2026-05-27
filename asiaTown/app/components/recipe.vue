@@ -21,8 +21,7 @@ defineProps({
       </div>
 
       <div class="content">
-        <h3>Pho Bo - Vietnamesisk okse suppe</h3>
-
+        <h4>Pho Bo - Vietnamesisk okse suppe</h4>
         <p class="description">
           Den ultimative nudelret med krydret bouillon, friske urter og mørt
           oksekød.
@@ -46,14 +45,12 @@ defineProps({
 <style scoped>
 .recipe-card {
   width: 100%;
-  max-width: 400px;
   height: 450px;
   border-radius: 20px;
   overflow: hidden;
-  background: #eee;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  border: 1px solid black;
 }
 
 .image-wrapper {
@@ -68,26 +65,25 @@ defineProps({
 
 .badge {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: var(--space-md);
+  right: var(--space-md);
   background: #e57373;
   color: black;
   padding: 6px 14px;
   border-radius: 999px;
-  font-size: 14px;
 }
 
-/* Content */
 .content {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: var(--space-sm);
 }
 
 .meta {
   display: flex;
-  gap: 24px;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
 }
 
 .meta-item {
