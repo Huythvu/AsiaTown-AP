@@ -2,9 +2,9 @@
 </script>
 
 <template>
-  <div>
+    <!-- <Nav/> -->
     <NuxtPage />
-  </div>
+    <Footer/>
 </template>
 
 <style scoped>

@@ -51,13 +51,17 @@ const footerLinks = {
 
 <template>
     <footer class="site-footer">
-        <NuxtLink to="#" class="footer-smiley">
-            Se vores smiley rapport :D
+        <NuxtLink to="https://www.findsmiley.dk/1284336" target="_blank" class="footer-smiley">
+            <p>
+                Se vores smiley rapport
+            </p>
+            <Icon name="ph:smiley-bold" />
+            <Icon name="cuida:open-in-new-tab-outline" />
         </NuxtLink>
 
         <div class="footer-main">
             <div class="footer-grid">
-                <section class="footer-brand">
+                <article class="footer-brand">
                     <div class="footer-logo">
                         <NuxtImg :src="logo" alt="Asia Market logo" />
                         <h2>Asia Market</h2>
@@ -67,9 +71,9 @@ const footerLinks = {
                         Din lokale asiatiske butik med et bredt udvalg af autentiske
                         produkter fra hele Asien.
                     </p>
-                </section>
+                </article>
 
-                <section>
+                <article>
                     <h2>Besøg os</h2>
 
                     <div class="footer-list">
@@ -81,9 +85,9 @@ const footerLinks = {
                             <p>{{ item.text }}</p>
                         </div>
                     </div>
-                </section>
+                </article>
 
-                <section>
+                <article>
                     <h2>Kontakt</h2>
 
                     <div class="footer-list">
@@ -95,9 +99,9 @@ const footerLinks = {
                             <p>{{ item.text }}</p>
                         </div>
                     </div>
-                </section>
+                </article>
 
-                <section>
+                <article>
                     <h2>Følg os</h2>
 
                     <div class="social-list">
@@ -106,7 +110,7 @@ const footerLinks = {
                             <Icon :name="item.icon" />
                         </NuxtLink>
                     </div>
-                </section>
+                </article>
             </div>
 
             <p class="footer-copy">
@@ -119,15 +123,27 @@ const footerLinks = {
 <style scoped>
 .site-footer {
     color: #ffffff;
+    /* FIX FOOTER LATER ITS TOO SHORT FOR CONTACT PAGE! */
+}
+
+.iconify {
+    font-size: var(--font-h3-desktop);
 }
 
 .footer-smiley {
-    display: block;
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    align-items: center;
     padding: 16px;
+    /* FIX BACKGRUND COLOR TO VAR WHEN ADDED IN ROOT */
     background: #4a9e34;
     color: #ffffff;
-    text-align: center;
-    text-decoration: none;
+}
+
+.footer-smiley p {
+    font-size: var(--font-h4-desktop);
+
 }
 
 .footer-main {

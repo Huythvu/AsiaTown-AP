@@ -86,7 +86,6 @@ const relatedProducts = [
             </div>
         </section>
     </main>
-    <Footer/>
 </template>
 
 <style scoped>

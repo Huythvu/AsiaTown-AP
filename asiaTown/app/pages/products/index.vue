@@ -24,16 +24,15 @@ const products = computed(() =>
 
 <template>
   <main>
-    <nav>
-      <p>global nav</p>
-      <p>breadCrumb</p>
-    </nav>
-
-    <header>
-      <h1>Alle Varer</h1>
-      <p>Udforsk vores komplette sortiment af asiatiske produkter.</p>
-    </header>
-
+  <nav>
+    <p>global nav</p>
+    <p>breadCrumb</p>
+  </nav>
+  <header>
+    <h1>Alle Varer</h1>
+    <p>Udforsk vores komplette sortiment af asiatiske produkter.</p>
+  </header>
+  
     <div class="product-layout">
       <aside class="filter">
         <p>Filter</p>
@@ -65,8 +64,7 @@ const products = computed(() =>
         </div>
       </div>
     </div>
-<Footer />
-</main>
+  </main>
 </template>
 
 <style scoped>
