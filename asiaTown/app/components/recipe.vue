@@ -10,7 +10,7 @@ defineProps({
 });
 </script>
 <template>
-  <NuxtLink :to="`/recipes/${slug}`" class="card-link">
+  <NuxtLink :to="`/recipes/${slug}`"">
     <article class="recipe-card">
       <div class="image-wrapper">
         <img
@@ -43,6 +43,7 @@ defineProps({
     </article>
   </NuxtLink>
 </template>
+
 <style scoped>
 .recipe-card {
   width: 100%;

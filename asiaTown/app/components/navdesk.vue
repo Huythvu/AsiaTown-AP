@@ -99,4 +99,10 @@
   font-weight: var(--weight-label);
   text-decoration: none;
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}
 </style>

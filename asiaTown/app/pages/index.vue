@@ -7,6 +7,8 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
 </script>
 
 <template>
+  <Navdesk />
+  <Navmobile />
   <section class="hero">
     <div class="hero-content">
       <h1>
@@ -61,8 +63,8 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
 
   <section class="categories">
     <div class="heading">
-      <p class="label">KATEGORIER</p>
-      <h2>Udforsk vores udvalg</h2>
+      <h4 class="label">KATEGORIER</h4>
+      <h3>Udforsk vores udvalg</h3>
     </div>
 
     <div class="category-grid">
@@ -103,8 +105,8 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
 
   <section class="recipes">
     <div class="heading">
-      <p class="label">INSPIRATION</p>
-      <h2>Madopskrifter</h2>
+      <h4 class="label">INSPIRATION</h4>
+      <h3>Madopskrifter</h3>
     </div>
 
     <div class="recipe-grid">
@@ -139,7 +141,7 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
   padding: 48px;
   border-radius: 16px;
   background-color: #f5e1d9;
-
+  margin-top: 100px;
   position: relative;
   overflow: hidden;
 }
@@ -152,7 +154,7 @@ h1 span {
   color: #e94e3c;
 }
 
-p {
+.hero-content p {
   margin-top: 16px;
 }
 
@@ -239,22 +241,8 @@ p {
   color: white;
 }
 
-.recipes-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-}
-
-.overline {
-  color: #d4a017;
-  font-size: 14px;
-  letter-spacing: 2px;
-  margin-bottom: 4px;
-}
-
-h2 {
-  margin-top: var(--section-padding-y);
+.udvalgt {
+  padding-top: var(--section-padding-y);
 }
 
 .see-all {
@@ -321,5 +309,76 @@ h2 {
 
 .send-icon {
   font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  /* HERO */
+
+  .hero {
+    padding: var(--space-xl);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: fit-content;
+  }
+
+  /* SECTION HEADERS */
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  /* PRODUKTER */
+
+  .udvalgte-produkter {
+    grid-template-columns: 1fr;
+  }
+
+  /* KATEGORIER */
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-card img {
+    height: 18rem;
+  }
+
+  /* RECIPES */
+
+  .recipe-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* NEWSLETTER */
+
+  .newsletter {
+    padding: var(--space-xl);
+  }
+
+  .newsletter-content {
+    text-align: left;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input {
+    max-width: 100%;
+  }
+
+  .newsletter-form button {
+    justify-content: center;
+
+    padding-block: 1rem;
+  }
 }
 </style>
