@@ -118,7 +118,6 @@ const footerLinks = {
 
 <style scoped>
 .site-footer {
-    margin-top: 64px;
     color: #ffffff;
 }
 

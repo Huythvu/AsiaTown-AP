@@ -27,7 +27,7 @@ const contactCards = [
 </script>
 
 <template>
-    <main class="contact-page">
+    <main>
         <nav class="breadcrumbs">
             <p>Breadcrumb soon</p>
         </nav>
@@ -45,14 +45,14 @@ const contactCards = [
                             <Icon :name="card.icon" />
                         </div>
 
-                        <h2>{{ card.title }}</h2>
+                        <h4>{{ card.title }}</h4>
                         <p>{{ card.text }}</p>
                     </article>
                 </div>
 
                 <div class="bottom-card">
                     <div class="social-content">
-                        <h2>Følg os</h2>
+                        <h4>Følg os</h4>
 
                         <div class="socials">
                             <a href="#" aria-label="Facebook">
@@ -66,7 +66,7 @@ const contactCards = [
                     </div>
 
                     <div class="gls-content">
-                        <h2>GLS</h2>
+                        <h4>GLS</h4>
                         <p>
                             Hent din pakke alle dage mellem
                             <br />
@@ -77,23 +77,20 @@ const contactCards = [
             </div>
 
             <div class="map-wrapper">
-                <img :src="mapImage" alt="Kort over Asia Towns placering" />
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2220.2239306568927!2d10.1050174!3d56.187807299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464c156aade27517%3A0x5b1609117aa2f528!2sAsiatown!5e0!3m2!1sda!2sdk!4v1779880590055!5m2!1sda!2sdk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </section>
     </main>
+    <Footer/>
 </template>
 
 <style scoped>
-.contact-page {
-    /* max-width: 1440px;
-    margin: 0 auto;
-    padding: 16px 64px 64px; */
-
-    /* Move to style.css later */
-    /* background: #fff; */
-    /* color: #1a1a1a; */
+header{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
 }
-
 .contact-layout {
     display: grid;
     grid-template-columns: minmax(320px, 644px) minmax(320px, 1fr);
@@ -122,6 +119,10 @@ const contactCards = [
     display: grid;
     gap: 16px;
     padding: 24px;
+}
+
+.iconify{
+    font-size: 40px;
 }
 
 .info-card p {
@@ -154,29 +155,10 @@ const contactCards = [
     height: 100%;
 }
 
-.map-wrapper img {
+.map-wrapper iframe {
     width: 100%;
+    min-width: 750px;
     height: 100%;
     object-fit: cover;
-}
-
-@media (max-width: 900px) {
-    .contact-page {
-        padding: 16px 24px 48px;
-    }
-
-    .contact-layout,
-    .bottom-card {
-        grid-template-columns: 1fr;
-    }
-
-    .map-wrapper img {
-        height: auto;
-        aspect-ratio: 644 / 590;
-    }
-
-    .page-header h1 {
-        font-size: 40px;
-    }
 }
 </style>
