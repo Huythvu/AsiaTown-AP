@@ -95,11 +95,8 @@
 }
 
 .nav-bottom a {
-  display: flex;
-  align-items: center;
   gap: var(--space-xs);
   font-weight: var(--weight-label);
-  color: black;
   text-decoration: none;
 }
 </style>

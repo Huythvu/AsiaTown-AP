@@ -254,7 +254,7 @@ p {
 }
 
 h2 {
-  font-size: 2.5rem;
+  margin-top: var(--section-padding-y);
 }
 
 .see-all {

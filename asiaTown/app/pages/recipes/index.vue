@@ -1,33 +1,51 @@
 <template>
   <section class="recipe-hero">
     <div class="overlay"></div>
-
     <div class="hero-content">
       <h1>Madopskrifter</h1>
-
       <p>Lad dig inspirere af autentiske asiatiske opskrifter</p>
     </div>
   </section>
 
   <section class="recipes-page">
-    <!-- Filters -->
     <div class="filters">
-      <button class="filter-btn">
-        Sværhedsgrad
-        <Icon name="mdi:chevron-down" />
-      </button>
+      <div class="select-wrapper">
+        <select class="filter-select">
+          <option selected disabled>Sværhedsgrad</option>
 
-      <button class="filter-btn">
-        Tilberedningstid
-        <Icon name="mdi:chevron-down" />
-      </button>
+          <option>Let</option>
+          <option>Mellem</option>
+          <option>Svært</option>
+        </select>
 
-      <button class="filter-btn">
-        Land
-        <Icon name="mdi:chevron-down" />
-      </button>
+        <Icon name="mdi:chevron-down" class="select-icon" />
+      </div>
+
+      <div class="select-wrapper">
+        <select class="filter-select">
+          <option selected disabled>Tilberedningstid</option>
+
+          <option>Under 30 min</option>
+          <option>30-60 min</option>
+          <option>Over 60 min</option>
+        </select>
+
+        <Icon name="mdi:chevron-down" class="select-icon" />
+      </div>
+
+      <div class="select-wrapper">
+        <select class="filter-select">
+          <option selected disabled>Land</option>
+
+          <option>Thailand</option>
+          <option>Vietnam</option>
+          <option>Korea</option>
+          <option>Kina</option>
+        </select>
+
+        <Icon name="mdi:chevron-down" class="select-icon" />
+      </div>
     </div>
-
     <div class="recipe-grid">
       <Recipe slug="pho-bo" /> <Recipe />
       <Recipe />
@@ -46,12 +64,12 @@
   background-position: center;
   display: flex;
   align-items: center;
+  margin-bottom: -64px;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-
   color: white;
 }
 
@@ -66,21 +84,30 @@
 .filters {
   display: flex;
   gap: var(--space-md);
-
-  margin-bottom: var(--space-3xl);
+  margin-block: var(--space-lg);
 }
 
-.filter-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
+.select-wrapper {
+  position: relative;
+}
 
-  padding: 1rem 1.5rem;
-
+.filter-select {
+  appearance: none;
+  min-width: 12rem;
+  padding: 1rem 3rem 1rem 1.5rem;
   border: 1px solid black;
   border-radius: 999px;
-
   background: white;
+  font-size: var(--font-body);
+  cursor: pointer;
+}
+
+.select-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .recipe-grid {
