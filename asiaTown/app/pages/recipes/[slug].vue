@@ -1,42 +1,23 @@
 <script setup>
 import { ref, computed } from "vue";
 
-const persons = ref(4);
+const route = useRoute();
 
-const basePersons = 4;
+const { data } = await useFetch(
+  `https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?filters[Slug][$eq]=${route.params.slug}&populate=*`
+);
 
-const ingredients = [
-  {
-    name: "Risnudler 5mm",
-    amount: 400,
-    unit: "g",
-  },
-  {
-    name: "Forårsløg",
-    amount: 4,
-    unit: "stk",
-  },
-  {
-    name: "Kanelstang",
-    amount: 1,
-    unit: "stk",
-  },
-  {
-    name: "Fiskesauce",
-    amount: 68,
-    unit: "ml",
-  },
-  {
-    name: "Frisk koriander",
-    amount: 4,
-    unit: "bund",
-  },
-];
+const recipe = computed(() => data.value?.data[0]);
+
+const persons = ref(recipe.value?.AntalPersoner || 1);
+
+const basePersons = recipe.value?.AntalPersoner || 1;
 
 const calculatedIngredients = computed(() => {
-  return ingredients.map((ingredient) => ({
+  return recipe.value?.Ingrediens.map((ingredient) => ({
     ...ingredient,
-    calculatedAmount: (ingredient.amount / basePersons) * persons.value,
+
+    calculatedAmount: (ingredient.Amount / basePersons) * persons.value,
   }));
 });
 
@@ -49,9 +30,6 @@ const decreasePersons = () => {
     persons.value--;
   }
 };
-const route = useRoute();
-
-console.log(route.params.slug);
 </script>
 
 <template>
@@ -60,57 +38,52 @@ console.log(route.params.slug);
   <main>
     <section class="recipe-hero">
       <div class="recipe-info">
-        <span class="tag"> Vietnamesisk </span>
-
+        <span class="tag">
+          {{ recipe?.Difficulty }}
+        </span>
         <h1>
-          Pho Bo - <br />
-          Vietnamesisk <br />
-          oksesuppe
+          {{ recipe?.Title }}
         </h1>
-
         <p>
-          Klassisk hanoi-stil pho med klar bouillon, blødt oksekød og friske
-          krydderurter.
+          {{ recipe?.Description }}
         </p>
 
         <div class="recipe-meta">
           <div class="meta-item">
             <Icon name="material-symbols:alarm-outline-rounded" />
-            <span>3 timer</span>
+            <span>
+              {{ recipe?.Tid?.Tid }}
+              {{ recipe?.Tid?.Unit }}
+            </span>
           </div>
 
           <div class="meta-item">
-            <p>Sværhedsgrad:</p>
-            <span>Mellem</span>
+            <Icon name="hugeicons:chef-hat" />
+            <span>
+              {{ recipe?.Difficulty }}
+            </span>
           </div>
 
           <div class="meta-item">
             <Icon name="line-md:account" />
-            <span>4 pers</span>
+            <span>{{ persons }} pers</span>
           </div>
         </div>
       </div>
 
       <div class="recipe-image">
-        <img
-          src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?q=80&w=1200&auto=format&fit=crop"
-          alt="Pho Bo"
-        />
+        <img :src="recipe?.Image[0]?.url" :alt="recipe?.Title" />
       </div>
     </section>
 
     <section class="recipe-content">
       <div class="ingredients">
         <p class="label">INGREDIENSER</p>
-
         <div class="persons">
           <h3>Antal personer</h3>
-
           <div class="counter">
             <button @click="decreasePersons">-</button>
-
             <span>{{ persons }}</span>
-
             <button @click="increasePersons">+</button>
           </div>
         </div>
@@ -118,10 +91,10 @@ console.log(route.params.slug);
         <div class="ingredient-list">
           <div
             v-for="ingredient in calculatedIngredients"
-            :key="ingredient.name"
+            :key="ingredient.id"
             class="ingredient"
           >
-            <p>{{ ingredient.name }}</p>
+            <p>{{ ingredient.Ingredient }}</p>
             <span>
               {{ ingredient.calculatedAmount }}
               {{ ingredient.unit }}
@@ -132,63 +105,28 @@ console.log(route.params.slug);
 
       <div class="steps">
         <p class="label">FREMGANGSMETODE</p>
-
-        <h2>4 TRIN</h2>
-
-        <div class="step">
-          <div class="step-title">
-            <h2>01</h2>
-
-            <h3>Forbered bouillon</h3>
-          </div>
-
-          <p>
-            Brun løg og ingefær på en tør pande til de er let sorte. Tilsæt til
-            kogende vand med oksebryst krydderier og lidt salt.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-title">
-            <h2>02</h2>
-
-            <h3>Forbered nudler</h3>
-          </div>
-
-          <p>Læg risnudler i blød i koldt vand i 30 minutter.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-title">
-            <h2>03</h2>
-
-            <h3>Si og smag til</h3>
-          </div>
-
-          <p>Sigt bouillon. Smag til med fiskesauce, lidt sukker og salt.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-title">
-            <h2>04</h2>
-
-            <h3>Anret</h3>
-          </div>
-
-          <p>
-            Læg nudler i bunden af skålen, top med oksekød og hæld bouillon
-            over.
-          </p>
+        <h2>{{ recipe?.Step?.length - 1 }} TRIN</h2>
+        <div v-for="(step, index) in recipe?.Step" :key="step.id" class="step">
+          <template v-if="step.Instruktion">
+            <div class="step-title">
+              <h2>
+                {{ String(index).padStart(2, "0") }}
+              </h2>
+              <h3>
+                {{ step.Overskrift }}
+              </h3>
+            </div>
+            <p>
+              {{ step.Instruktion }}
+            </p>
+          </template>
         </div>
       </div>
     </section>
-
     <section class="related-products">
       <h2>Relaterede produkter</h2>
-
       <div class="product-grid">
-        <ProductCard />
-        <ProductCard />
+        <ProductCard v-for="product in recipe?.products" :key="product.id" />
       </div>
     </section>
   </main>
