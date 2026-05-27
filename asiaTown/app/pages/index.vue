@@ -9,131 +9,134 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
 <template>
   <Navdesk />
   <Navmobile />
-  <section class="hero">
-    <div class="hero-content">
-      <h1>
-        Autentiske asiatiske <br />
-        <span>råvarer & specialiteter</span>
-      </h1>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>
+          Autentiske asiatiske <br />
+          <span>råvarer & specialiteter</span>
+        </h1>
 
-      <p>
-        Udforsk vores store udvalg af nudler, saucer, snacks og friske varer
-        direkte fra Asien. Alt hvad du behøver til dit asiatiske køkken.
-      </p>
+        <p>
+          Udforsk vores store udvalg af nudler, saucer, snacks og friske varer
+          direkte fra Asien. Alt hvad du behøver til dit asiatiske køkken.
+        </p>
 
-      <div class="hero-buttons">
-        <NuxtLink to="/produkter" class="btn-primary">
-          Se alle varer →
-        </NuxtLink>
+        <div class="hero-buttons">
+          <NuxtLink to="/produkter" class="btn-primary">
+            Se alle varer →
+          </NuxtLink>
 
-        <NuxtLink to="/opskrifter" class="btn-secondary">
-          Madopskrifter
-        </NuxtLink>
+          <NuxtLink to="/opskrifter" class="btn-secondary">
+            Madopskrifter
+          </NuxtLink>
+        </div>
       </div>
-    </div>
-  </section>
-  <section class="udvalgt">
-    <div class="header">
-      <h2>Udvalgte produkter</h2>
-      <NuxtLink to="/produkter" class="see-all">Se alle →</NuxtLink>
-    </div>
-    <div class="udvalgte-produkter">
-      <div v-for="product in products" :key="product.id" class="card">
-        <NuxtLink :to="`/produkter/${product.Slug}`">
+    </section>
+    <section class="udvalgt">
+      <div class="header">
+        <h2>Udvalgte produkter</h2>
+        <NuxtLink to="/produkter" class="see-all">Se alle →</NuxtLink>
+      </div>
+      <div class="udvalgte-produkter">
+        <div v-for="product in products" :key="product.id" class="card">
+          <NuxtLink :to="`/produkter/${product.Slug}`">
+            <img
+              :src="
+                product.Image?.[0]?.formats?.small?.url ||
+                product.Image?.[0]?.url
+              "
+              :alt="product.Title"
+            />
+
+            <div class="card-content">
+              <p class="kategori">
+                {{ product.kategorier?.[0]?.Kategori }}
+              </p>
+
+              <h4>{{ product.Title }}</h4>
+
+              <p class="price">{{ product.Pris }} kr.</p>
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <section class="categories">
+      <div class="heading">
+        <h4 class="label">KATEGORIER</h4>
+        <h3>Udforsk vores udvalg</h3>
+      </div>
+
+      <div class="category-grid">
+        <article class="category-card">
           <img
-            :src="
-              product.Image?.[0]?.formats?.small?.url || product.Image?.[0]?.url
-            "
-            :alt="product.Title"
+            src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?q=80&w=1200&auto=format&fit=crop"
+            alt="Nudler"
           />
 
-          <div class="card-content">
-            <p class="kategori">
-              {{ product.kategorier?.[0]?.Kategori }}
-            </p>
+          <div class="overlay"></div>
 
-            <h4>{{ product.Title }}</h4>
+          <h3>Nudler</h3>
+        </article>
 
-            <p class="price">{{ product.Pris }} kr.</p>
-          </div>
-        </NuxtLink>
+        <article class="category-card">
+          <img
+            src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop"
+            alt="Soja"
+          />
+
+          <div class="overlay"></div>
+
+          <h3>Soja / Sauce</h3>
+        </article>
+
+        <article class="category-card">
+          <img
+            src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=1200&auto=format&fit=crop"
+            alt="Snacks"
+          />
+
+          <div class="overlay"></div>
+
+          <h3>Snacks</h3>
+        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="categories">
-    <div class="heading">
-      <h4 class="label">KATEGORIER</h4>
-      <h3>Udforsk vores udvalg</h3>
-    </div>
+    <section class="recipes">
+      <div class="heading">
+        <h4 class="label">INSPIRATION</h4>
+        <h3>Madopskrifter</h3>
+      </div>
 
-    <div class="category-grid">
-      <article class="category-card">
-        <img
-          src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?q=80&w=1200&auto=format&fit=crop"
-          alt="Nudler"
-        />
+      <div class="recipe-grid">
+        <Recipe />
+        <Recipe />
+        <Recipe />
+      </div>
+    </section>
 
-        <div class="overlay"></div>
+    <section class="newsletter">
+      <div class="newsletter-content">
+        <h2>Hold dig opdateret</h2>
 
-        <h3>Nudler</h3>
-      </article>
+        <p>
+          Tilmeld dig vores nyhedsbrev og få besked om nye produkter, tilbud og
+          opskrifter.
+        </p>
 
-      <article class="category-card">
-        <img
-          src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop"
-          alt="Soja"
-        />
+        <form class="newsletter-form">
+          <input type="email" placeholder="Din e-mailadresse" />
 
-        <div class="overlay"></div>
-
-        <h3>Soja / Sauce</h3>
-      </article>
-
-      <article class="category-card">
-        <img
-          src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=1200&auto=format&fit=crop"
-          alt="Snacks"
-        />
-
-        <div class="overlay"></div>
-
-        <h3>Snacks</h3>
-      </article>
-    </div>
-  </section>
-
-  <section class="recipes">
-    <div class="heading">
-      <h4 class="label">INSPIRATION</h4>
-      <h3>Madopskrifter</h3>
-    </div>
-
-    <div class="recipe-grid">
-      <Recipe />
-      <Recipe />
-      <Recipe />
-    </div>
-  </section>
-
-  <section class="newsletter">
-    <div class="newsletter-content">
-      <h2>Hold dig opdateret</h2>
-
-      <p>
-        Tilmeld dig vores nyhedsbrev og få besked om nye produkter, tilbud og
-        opskrifter.
-      </p>
-
-      <form class="newsletter-form">
-        <input type="email" placeholder="Din e-mailadresse" />
-
-        <button>
-          <Icon name="ph:paper-plane-tilt" class="send-icon" /> Tilmeld
-        </button>
-      </form>
-    </div>
-  </section>
+          <button>
+            <Icon name="ph:paper-plane-tilt" class="send-icon" /> Tilmeld
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
 </template>
 <style scoped>
 /* Hero sektion */
@@ -141,7 +144,6 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
   padding: 48px;
   border-radius: 16px;
   background-color: #f5e1d9;
-  margin-top: 100px;
   position: relative;
   overflow: hidden;
 }

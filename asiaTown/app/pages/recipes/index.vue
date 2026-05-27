@@ -1,57 +1,61 @@
 <template>
-  <section class="recipe-hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1>Madopskrifter</h1>
-      <p>Lad dig inspirere af autentiske asiatiske opskrifter</p>
-    </div>
-  </section>
-
-  <section class="recipes-page">
-    <div class="filters">
-      <div class="select-wrapper">
-        <select class="filter-select">
-          <option selected disabled>Sværhedsgrad</option>
-
-          <option>Let</option>
-          <option>Mellem</option>
-          <option>Svært</option>
-        </select>
-
-        <Icon name="mdi:chevron-down" class="select-icon" />
+  <Navdesk />
+  <Navmobile />
+  <main>
+    <section class="recipe-hero">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Madopskrifter</h1>
+        <p>Lad dig inspirere af autentiske asiatiske opskrifter</p>
       </div>
+    </section>
 
-      <div class="select-wrapper">
-        <select class="filter-select">
-          <option selected disabled>Tilberedningstid</option>
+    <section class="recipes-page">
+      <div class="filters">
+        <div class="select-wrapper">
+          <select class="filter-select">
+            <option selected disabled>Sværhedsgrad</option>
 
-          <option>Under 30 min</option>
-          <option>30-60 min</option>
-          <option>Over 60 min</option>
-        </select>
+            <option>Let</option>
+            <option>Mellem</option>
+            <option>Svært</option>
+          </select>
 
-        <Icon name="mdi:chevron-down" class="select-icon" />
+          <Icon name="mdi:chevron-down" class="select-icon" />
+        </div>
+
+        <div class="select-wrapper">
+          <select class="filter-select">
+            <option selected disabled>Tilberedningstid</option>
+
+            <option>Under 30 min</option>
+            <option>30-60 min</option>
+            <option>Over 60 min</option>
+          </select>
+
+          <Icon name="mdi:chevron-down" class="select-icon" />
+        </div>
+
+        <div class="select-wrapper">
+          <select class="filter-select">
+            <option selected disabled>Land</option>
+
+            <option>Thailand</option>
+            <option>Vietnam</option>
+            <option>Korea</option>
+            <option>Kina</option>
+          </select>
+
+          <Icon name="mdi:chevron-down" class="select-icon" />
+        </div>
       </div>
-
-      <div class="select-wrapper">
-        <select class="filter-select">
-          <option selected disabled>Land</option>
-
-          <option>Thailand</option>
-          <option>Vietnam</option>
-          <option>Korea</option>
-          <option>Kina</option>
-        </select>
-
-        <Icon name="mdi:chevron-down" class="select-icon" />
+      <div class="recipe-grid">
+        <Recipe slug="pho-bo" /> <Recipe />
+        <Recipe />
+        <Recipe />
       </div>
-    </div>
-    <div class="recipe-grid">
-      <Recipe slug="pho-bo" /> <Recipe />
-      <Recipe />
-      <Recipe />
-    </div>
-  </section>
+    </section>
+  </main>
 </template>
 
 <style scoped>
@@ -114,5 +118,44 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-xl);
+}
+
+@media (max-width: 768px) {
+  .recipe-hero {
+    height: 16rem;
+
+    padding: var(--space-xl);
+
+    border-radius: 1.5rem;
+
+    margin-bottom: 0;
+  }
+
+  .hero-content {
+    max-width: 18rem;
+  }
+
+  .filters {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: var(--space-sm);
+  }
+
+  .select-wrapper {
+    width: 100%;
+  }
+
+  .filter-select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .recipe-grid {
+    grid-template-columns: 1fr;
+
+    gap: var(--space-lg);
+  }
 }
 </style>

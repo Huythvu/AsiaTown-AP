@@ -10,7 +10,7 @@ defineProps({
 });
 </script>
 <template>
-  <NuxtLink :to="`/recipes/${slug}`"">
+  <NuxtLink :to="`/recipes/${slug}`">
     <article class="recipe-card">
       <div class="image-wrapper">
         <img
