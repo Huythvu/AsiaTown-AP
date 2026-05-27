@@ -127,8 +127,7 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
         <input type="email" placeholder="Din e-mailadresse" />
 
         <button>
-          <Icon name="mdi:send-outline" />
-          Tilmeld
+          <Icon name="ph:paper-plane-tilt" class="send-icon" /> Tilmeld
         </button>
       </form>
     </div>
@@ -180,15 +179,12 @@ p {
   text-decoration: none;
 }
 
-/* Udvalgt produkt */
-
 .udvalgte-produkter {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-md);
 }
 
-/* Card FJERN SENERE*/
 .card {
   border: 1px solid #eee;
   border-radius: 8px;
@@ -300,12 +296,9 @@ h2 {
 .newsletter-form input {
   width: 100%;
   max-width: 35rem;
-
   padding: 1.5rem 2rem;
-
   border: none;
   border-radius: 1.5rem;
-
   background: #b3b3b3;
   color: white;
 }
@@ -318,13 +311,15 @@ h2 {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-
   padding-inline: 2rem;
-
   border: none;
   border-radius: 1.5rem;
 
   background: #ff7300;
   color: white;
+}
+
+.send-icon {
+  font-size: 20px;
 }
 </style>
