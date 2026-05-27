@@ -88,6 +88,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+main{
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 16px 64px 64px;
+}
 
 h1,
 h2,
