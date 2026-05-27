@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing:border-box;
+}
+
 :root {
   /* ------------------------------------------------------------------
      SPACING SCALE
@@ -72,6 +79,65 @@
 
   /* Content width */
   --content-width-text: 50rem;   /* 800px – læsbar tekst */
+}
+
+/* ==========================================================================
+   GLOBAL TYPOGRAPHY – DESKTOP
+   ========================================================================== */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Roboto Serif', serif;
+}
+
+h1 {
+  font-size: var(--font-h1-desktop);
+  font-weight: var(--weight-h1);
+}
+
+h2 {
+  font-size: var(--font-h2-desktop);
+  font-weight: var(--weight-h2);
+}
+
+h3 {
+  font-size: var(--font-h3-desktop);
+  font-weight: var(--weight-h3);
+}
+
+h4 {
+  font-size: var(--font-h4-desktop);
+  font-weight: var(--weight-h4);
+}
+
+p {
+    font-size: var(--font-body);
+    font-weight: var(--weight-body);
+}
+
+section {
+  padding-bottom: var(--section-padding-y);
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+ul,
+ol {
+  list-style: none;
 }
 
 /* ==========================================================================
