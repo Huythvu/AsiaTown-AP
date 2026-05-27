@@ -1,4 +1,10 @@
+<script setup>
+import { ref } from 'vue';
+</script>
+
 <template>
-  <h1>hej</h1>
-  <p>jasda</p>
+
 </template>
+
+<style scoped>
+</style>
