@@ -58,10 +58,84 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
       </div>
     </div>
   </section>
+
+  <section class="categories">
+    <div class="heading">
+      <p class="label">KATEGORIER</p>
+      <h2>Udforsk vores udvalg</h2>
+    </div>
+
+    <div class="category-grid">
+      <article class="category-card">
+        <img
+          src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?q=80&w=1200&auto=format&fit=crop"
+          alt="Nudler"
+        />
+
+        <div class="overlay"></div>
+
+        <h3>Nudler</h3>
+      </article>
+
+      <article class="category-card">
+        <img
+          src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop"
+          alt="Soja"
+        />
+
+        <div class="overlay"></div>
+
+        <h3>Soja / Sauce</h3>
+      </article>
+
+      <article class="category-card">
+        <img
+          src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=1200&auto=format&fit=crop"
+          alt="Snacks"
+        />
+
+        <div class="overlay"></div>
+
+        <h3>Snacks</h3>
+      </article>
+    </div>
+  </section>
+
+  <section class="recipes">
+    <div class="heading">
+      <p class="label">INSPIRATION</p>
+      <h2>Madopskrifter</h2>
+    </div>
+
+    <div class="recipe-grid">
+      <Recipe />
+      <Recipe />
+      <Recipe />
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="newsletter-content">
+      <h2>Hold dig opdateret</h2>
+
+      <p>
+        Tilmeld dig vores nyhedsbrev og få besked om nye produkter, tilbud og
+        opskrifter.
+      </p>
+
+      <form class="newsletter-form">
+        <input type="email" placeholder="Din e-mailadresse" />
+
+        <button>
+          <Icon name="mdi:send-outline" />
+          Tilmeld
+        </button>
+      </form>
+    </div>
+  </section>
 </template>
 <style scoped>
-/* HERO SIDE */
-
+/* Hero sektion */
 .hero {
   padding: 48px;
   border-radius: 16px;
@@ -71,7 +145,6 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
   overflow: hidden;
 }
 
-/* Content */
 .hero-content {
   max-width: 600px;
 }
@@ -80,15 +153,10 @@ h1 span {
   color: #e94e3c;
 }
 
-/* Text */
 p {
   margin-top: 16px;
-  color: #555;
-  max-width: 500px;
-  line-height: 1.5;
 }
 
-/* Buttons */
 .hero-buttons {
   margin-top: var(--space-md);
   display: flex;
@@ -112,7 +180,8 @@ p {
   text-decoration: none;
 }
 
-/* Grid */
+/* Udvalgt produkt */
+
 .udvalgte-produkter {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -134,5 +203,128 @@ p {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+}
+
+/* Cards for kategorier og madopskrifter */
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xl);
+}
+
+.label {
+  color: #d4a437;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+}
+
+.category-card img {
+  height: 22rem;
+  object-fit: cover;
+}
+
+.category-card h3 {
+  position: absolute;
+  left: 2rem;
+  bottom: 2rem;
+  color: white;
+}
+
+.recipes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.overline {
+  color: #d4a017;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+.see-all {
+  color: #e94e3c;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Nyhedsbrev */
+
+.newsletter {
+  padding: var(--space-3xl);
+  background: #f3f3f3;
+  border-radius: 1rem;
+}
+
+.newsletter-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newsletter-content p {
+  margin-block: var(--space-lg);
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.newsletter-form input {
+  width: 100%;
+  max-width: 35rem;
+
+  padding: 1.5rem 2rem;
+
+  border: none;
+  border-radius: 1.5rem;
+
+  background: #b3b3b3;
+  color: white;
+}
+
+.newsletter-form input::placeholder {
+  color: white;
+}
+
+.newsletter-form button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+
+  padding-inline: 2rem;
+
+  border: none;
+  border-radius: 1.5rem;
+
+  background: #ff7300;
+  color: white;
 }
 </style>
