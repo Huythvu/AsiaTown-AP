@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   title: String,
   slug: String,
   description: String,
@@ -8,35 +8,37 @@ defineProps({
   persons: String,
   difficulty: String,
 });
+
+const shortDescription = computed(() => {
+  return props.description.length > 85
+    ? props.description.slice(0, 85) + "..."
+    : props.description;
+});
 </script>
 <template>
   <NuxtLink :to="`/recipes/${slug}`">
     <article class="recipe-card">
       <div class="image-wrapper">
-        <img
-          src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d"
-          alt="Pho Bo suppe"
-        />
-
-        <span class="badge">Svært</span>
+        <img :src="image" :alt="title" />
+        <span class="badge">
+          {{ difficulty }}
+        </span>
       </div>
 
       <div class="content">
-        <h4>Pho Bo - Vietnamesisk okse suppe</h4>
+        <h4>{{ title }}</h4>
         <p class="description">
-          Den ultimative nudelret med krydret bouillon, friske urter og mørt
-          oksekød.
+          {{ shortDescription }}
         </p>
-
         <div class="meta">
           <div class="meta-item">
             <Icon name="material-symbols:alarm-outline-rounded" />
-            <span>30 min</span>
+            <span>{{ time }}</span>
           </div>
 
           <div class="meta-item">
             <Icon name="line-md:account" />
-            <span>4 pers.</span>
+            <span>{{ persons }} pers</span>
           </div>
         </div>
       </div>
@@ -74,7 +76,10 @@ defineProps({
   padding: 6px 14px;
   border-radius: 999px;
 }
-
+.content h4 {
+  line-height: 1.2;
+  min-height: calc(1.2em * 2);
+}
 .content {
   padding: 20px;
   display: flex;
@@ -105,20 +110,11 @@ defineProps({
     height: 200px;
   }
 
-  h3 {
-    font-size: 1.25rem;
-  }
-
-  .description {
-    font-size: 0.9rem;
-  }
-
   .meta {
     gap: 16px;
   }
 
   .badge {
-    font-size: 12px;
     padding: 4px 10px;
   }
 

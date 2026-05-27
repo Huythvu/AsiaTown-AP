@@ -4,6 +4,12 @@ const { data } = await useFetch(
 );
 
 const products = computed(() => data.value?.data.slice(0, 8) || []);
+
+const { data: recipeData } = await useFetch(
+  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?populate=*&pagination[limit]=3"
+);
+
+const recipes = computed(() => recipeData.value?.data || []);
 </script>
 
 <template>
@@ -112,9 +118,17 @@ const products = computed(() => data.value?.data.slice(0, 8) || []);
       </div>
 
       <div class="recipe-grid">
-        <Recipe />
-        <Recipe />
-        <Recipe />
+        <Recipe
+          v-for="recipe in recipes"
+          :key="recipe.id"
+          :title="recipe.Title"
+          :slug="recipe.Slug"
+          :description="recipe.Description"
+          :image="recipe.Image[0]?.url"
+          :time="`${recipe.Tid.Tid} ${recipe.Tid.Unit}`"
+          :persons="recipe.AntalPersoner"
+          :difficulty="recipe.Difficulty"
+        />
       </div>
     </section>
 
@@ -311,6 +325,12 @@ h1 span {
 
 .send-icon {
   font-size: 20px;
+}
+
+@media (max-width: 1289px) {
+  .recipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
