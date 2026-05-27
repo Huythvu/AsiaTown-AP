@@ -1,3 +1,11 @@
+<script setup>
+const { data } = await useFetch(
+  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?populate=*"
+);
+
+const recipes = computed(() => data.value?.data || []);
+</script>
+
 <template>
   <Navdesk />
   <Navmobile />
@@ -50,9 +58,17 @@
         </div>
       </div>
       <div class="recipe-grid">
-        <Recipe slug="pho-bo" /> <Recipe />
-        <Recipe />
-        <Recipe />
+        <Recipe
+          v-for="recipe in recipes"
+          :key="recipe.id"
+          :title="recipe.Title"
+          :slug="recipe.Slug"
+          :description="recipe.Description"
+          :image="recipe.Image[0]?.url"
+          :time="`${recipe.Tid.Tid} ${recipe.Tid.Unit}`"
+          :persons="recipe.AntalPersoner"
+          :difficulty="recipe.Difficulty"
+        />
       </div>
     </section>
   </main>
