@@ -173,6 +173,11 @@ const decreasePersons = () => {
   object-fit: cover;
 }
 
+.recipe-image {
+  width: 100%;
+  max-width: 40rem;
+}
+
 .recipe-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
