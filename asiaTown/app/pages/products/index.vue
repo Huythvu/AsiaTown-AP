@@ -65,7 +65,8 @@ const products = computed(() =>
         </div>
       </div>
     </div>
-  </main>
+<Footer />
+</main>
 </template>
 
 <style scoped>
