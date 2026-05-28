@@ -24,18 +24,18 @@ const products = computed(() =>
 
 <template>
   <main>
-  <nav>
-    <p>global nav</p>
-    <p>breadCrumb</p>
-  </nav>
-  <header>
-    <h1>Alle Varer</h1>
-    <p>Udforsk vores komplette sortiment af asiatiske produkter.</p>
-  </header>
-  
-    <div class="product-layout">
+    <header>
+      <p>breadCrumb</p>
+      <h1>Alle Varer</h1>
+      <p>Udforsk vores komplette sortiment af asiatiske produkter.</p>
+    </header>
+
+    <section class="product-layout">
       <aside class="filter">
-        <p>Filter</p>
+        <div class="filter-text">
+          <Icon name="teenyicons:adjust-horizontal-solid" />
+          <h4>Filter</h4>
+        </div>
         <div class="filterbackgroundtest"></div>
       </aside>
 
@@ -63,35 +63,43 @@ const products = computed(() =>
           <p>Ingen produkter tilgængelige.</p>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 </template>
 
 <style scoped>
-nav{
-  margin-bottom: var(--space-md);
+/* Maybe make this header spacing a global value and add a margin buttom*/
+header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
-h1{
-  margin-bottom: var(--space-sm);
-}
+
 .product-layout {
-  margin-top: var(--space-lg);
   display: grid;
   grid-template-columns: 310px 1fr;
-  gap: 24px;
+  gap: var(--space-lg);
 }
 
 /* Placeholder sizing for the filter while it's empty */
 .filter .filterbackgroundtest {
   width: 310px;
   height: 700px;
-  background: #f0f0f0; /* so you can actually see it */
+  background: #f0f0f0;
+  /* so you can actually see it */
+}
+.filter-text{
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 
 .product-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-md);
 }
 
 .toolbar {
@@ -100,15 +108,24 @@ h1{
   justify-content: space-between;
 }
 
+.iconify{
+  font-size: var(--font-body);
+}
+
 .sort {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-sm);
+  height: 38px;
+}
+.sort select{
+  padding: 8px;
+  font-size: var(--font-h4-desktop);
 }
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
 }
 </style>
