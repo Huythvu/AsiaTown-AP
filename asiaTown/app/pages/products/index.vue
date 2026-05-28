@@ -4,20 +4,20 @@ const { data, error } = await useFetch(
 )
 
 const products = computed(() =>
-  data.value?.data.map(p => ({
-    id: p.id,
-    slug: p.Slug,
-    title: p.Title,
-    price: p.Pris,
-    description: p.ProduktBeskrivelse,
-    nutrition: p.Naeringsindhold,
-    brand: p.brand?.Brand,
-    country: p.land?.Land,
-    categories: p.kategoriers?.map(k => k.Kategori) ?? [],
-    types: p.types?.map(t => t.Type) ?? [],
-    image: p.Image?.[0]?.url,
-    imageSmall: p.Image?.[0]?.formats?.small?.url,
-    imageMedium: p.Image?.[0]?.formats?.medium?.url,
+  data.value?.data.map(product => ({
+    id: product.id,
+    slug: product.Slug,
+    title: product.Title,
+    price: product.Pris,
+    description: product.ProduktBeskrivelse,
+    nutrition: product.Naeringsindhold,
+    brand: product.brand?.Brand,
+    country: product.land?.Land,
+    categories: product.kategoriers?.map(k => k.Kategori) ?? [],
+    types: product.types?.map(t => t.Type) ?? [],
+    image: product.Image?.[0]?.url,
+    imageSmall: product.Image?.[0]?.formats?.small?.url,
+    imageMedium: product.Image?.[0]?.formats?.medium?.url,
   })) ?? []
 )
 </script>
@@ -34,14 +34,20 @@ const products = computed(() =>
       <aside class="filter">
         <div class="filter-text">
           <Icon name="teenyicons:adjust-horizontal-solid" />
-          <h4>Filter</h4>
+          <h4>Filtre</h4>
         </div>
+
         <div class="filterbackgroundtest"></div>
       </aside>
 
       <div class="product-content">
         <div class="toolbar">
-          <p>{{ products.length }} produkter</p>
+          <p class="product-count">{{ products.length }} produkter</p>
+
+          <button class="mobile-filter-button" type="button">
+            <Icon name="teenyicons:adjust-horizontal-solid" />
+            Filtre
+          </button>
 
           <div class="sort">
             <Icon name="tabler:arrows-sort" />
@@ -89,7 +95,8 @@ header {
   background: #f0f0f0;
   /* so you can actually see it */
 }
-.filter-text{
+
+.filter-text {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -108,7 +115,7 @@ header {
   justify-content: space-between;
 }
 
-.iconify{
+.iconify {
   font-size: var(--font-body);
 }
 
@@ -118,14 +125,93 @@ header {
   gap: var(--space-sm);
   height: 38px;
 }
-.sort select{
+
+.sort select {
   padding: 8px;
-  font-size: var(--font-h4-desktop);
+  border-radius: 6px;
+  font-size: var(--font-body);
 }
 
 .product-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+}
+
+.mobile-search {
+  display: none;
+}
+
+.mobile-filter-button {
+  display: none;
+}
+
+/* MOBILE VERSION */
+@media (max-width: 768px) {
+
+  header {
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .mobile-search input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: var(--font-body);
+  }
+
+  .mobile-search input::placeholder {
+    color: #1a1a1a;
+    opacity: 1;
+  }
+
+  .product-layout {
+    display: block;
+  }
+
+  .filter {
+    display: none;
+  }
+
+  .product-content {
+    gap: var(--space-md);
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .mobile-filter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 8px;
+    border: 1px solid #1a1a1a;
+    border-radius: 6px;
+    background: white;
+    font-size: var(--font-body);
+    order: 1;
+  }
+
+  .sort {
+    order: 2;
+    justify-self: end;
+  }
+
+  .product-count {
+    order: 3;
+    grid-column: 1 / -1;
+  }
+
+  .product-list {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 24px;
+  }
 }
 </style>

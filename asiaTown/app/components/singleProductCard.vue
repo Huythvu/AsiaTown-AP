@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
     product: {
-        type: Object, 
+        type: Object,
         required: true
     }
 })
@@ -9,13 +9,13 @@ defineProps({
 
 <template>
     <div class="product-card">
-        <div class="product-card__image-wrapper">
-            <NuxtImg :src="product.imageSmall ?? product.image" :alt="product.title" class="product-card__image" />
+        <div class="image-wrapper">
+            <NuxtImg :src="product.imageSmall ?? product.image" :alt="product.title" class="product-image" />
         </div>
-        <div class="product-card__content">
-            <p class="product-card__category">{{ product.categories[0]}}</p>
-            <h4 class="product-card__title">{{ product.title }}</h4>
-            <h4 class="product-card__price">{{ product.price }} kr.</h4>
+        <div class="content">
+            <p class="category">{{ product.categories[0] }}</p>
+            <h4 class="title">{{ product.title }}</h4>
+            <h4 class="price">{{ product.price }} kr.</h4>
         </div>
     </div>
 </template>
@@ -34,38 +34,42 @@ main {
     border-radius: 6px;
 }
 
-.product-card__image-wrapper {
+.image-wrapper {
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     background-color: #ffffff;
     border-radius: 6px 6px 0 0;
     border-bottom: 1px solid red;
-
 }
 
-.product-card__image {
+.product-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.product-card__content {
+.content {
     display: flex;
     flex-direction: column;
     padding: 16px;
     gap: 16px;
 }
 
-.product-card__category {
+.category {
     font-size: var(--font-small);
 }
 
-.product-card__title {
+.title {
     font-size: var(--font-h4-desktop);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.product-card__price {
+.price {
     font-size: var(--font-h4-desktop);
 }
 </style>
