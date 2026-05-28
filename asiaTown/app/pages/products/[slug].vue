@@ -1,4 +1,6 @@
 <script setup>
+import MySwiper from '~/components/swiper/MySwiper.vue';
+
 const product = {
     brand: 'Nongshim',
     title: 'Shin Ramyun Gourmet Spicy Nongshim',
@@ -77,7 +79,6 @@ const relatedProducts = [
                 </article>
             </div>
         </section>
-
         <section class="related">
             <h2>Relaterede produkter</h2>
 
@@ -85,6 +86,8 @@ const relatedProducts = [
                 <SingleProductCard v-for="product in relatedProducts" :key="product.title" :product="product" />
             </div>
         </section>
+
+        <MySwiper />
     </main>
 </template>
 
