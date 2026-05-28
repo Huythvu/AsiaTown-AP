@@ -39,7 +39,7 @@ const decreasePersons = () => {
     <section class="recipe-hero">
       <div class="recipe-info">
         <span class="tag">
-          {{ recipe?.Difficulty }}
+          {{ recipe?.lands[0]?.Land }}
         </span>
         <h1>
           {{ recipe?.Title }}

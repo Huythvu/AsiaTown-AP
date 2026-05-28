@@ -3,7 +3,10 @@
     <!-- Top navigation -->
     <div class="nav-top">
       <NuxtLink to="/" class="logo">
-        <img src="" alt="Asia Town logo" />
+        <img
+          src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/asia_Town_1_456a806ff1.png"
+          alt="Asia Town logo"
+        />
       </NuxtLink>
 
       <form class="search">
