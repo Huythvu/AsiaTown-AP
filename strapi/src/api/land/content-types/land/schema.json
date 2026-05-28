@@ -13,6 +13,12 @@
   "attributes": {
     "Land": {
       "type": "string"
+    },
+    "recipes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe.recipe",
+      "inversedBy": "lands"
     }
   }
 }

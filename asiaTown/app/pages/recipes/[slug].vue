@@ -105,21 +105,22 @@ const decreasePersons = () => {
 
       <div class="steps">
         <p class="label">FREMGANGSMETODE</p>
-        <h2>{{ recipe?.Step?.length - 1 }} TRIN</h2>
-        <div v-for="(step, index) in recipe?.Step" :key="step.id" class="step">
-          <template v-if="step.Instruktion">
-            <div class="step-title">
-              <h2>
-                {{ String(index).padStart(2, "0") }}
-              </h2>
-              <h3>
-                {{ step.Overskrift }}
-              </h3>
-            </div>
-            <p>
-              {{ step.Instruktion }}
-            </p>
-          </template>
+        <h2>
+          {{ recipe?.Step.filter((step) => step.Instruktion).length }} TRIN
+        </h2>
+        <div
+          v-for="step in recipe?.Step.filter((step) => step.Instruktion)"
+          :key="step.id"
+          class="step"
+        >
+          <div class="step-title">
+            <h3>
+              {{ step.Overskrift }}
+            </h3>
+          </div>
+          <p>
+            {{ step.Instruktion }}
+          </p>
         </div>
       </div>
     </section>
@@ -169,8 +170,9 @@ const decreasePersons = () => {
 }
 .recipe-image img {
   height: 100%;
+  max-height: 400px;
   border-radius: 1rem;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .recipe-image {
@@ -228,10 +230,6 @@ const decreasePersons = () => {
   align-items: center;
   gap: var(--space-md);
   margin-bottom: var(--space-md);
-}
-
-.step-title h2 {
-  color: #d4a437;
 }
 
 .related-products {

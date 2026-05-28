@@ -641,6 +641,7 @@ export interface ApiLandLand extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::land.land'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    recipes: Schema.Attribute.Relation<'manyToMany', 'api::recipe.recipe'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -713,6 +714,7 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
       true
     >;
     Ingrediens: Schema.Attribute.Component<'recipes.ingredients', true>;
+    lands: Schema.Attribute.Relation<'manyToMany', 'api::land.land'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
