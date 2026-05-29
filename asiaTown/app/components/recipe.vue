@@ -5,7 +5,7 @@ const props = defineProps({
   description: String,
   image: String,
   time: String,
-  persons: String,
+  persons: Number,
   difficulty: String,
 });
 </script>
