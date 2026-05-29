@@ -1,6 +1,7 @@
 <script setup>
 import MySwiper from '~/components/swiper/MySwiper.vue';
 
+
 const product = {
     brand: 'Nongshim',
     title: 'Shin Ramyun Gourmet Spicy Nongshim',
@@ -11,9 +12,18 @@ const product = {
 }
 
 const recipes = [
-    ['Creamy Shin Ramyun med æg og ost', 'https://www.figma.com/api/mcp/asset/5baf9a5d-2995-4a1a-8f04-4e5a8b41324e'],
-    ['Korean Army Stew (Budae Jjigae)', 'https://www.figma.com/api/mcp/asset/570dd010-f393-4d46-ac24-331169a80c5b'],
-    ['Shin Ramyun stir-fry', 'https://www.figma.com/api/mcp/asset/53be980e-5b13-472a-bd08-b2f64d90efb5'],
+    {
+        title: 'Creamy Shin Ramyun med æg og ost',
+        image: 'https://www.figma.com/api/mcp/asset/5baf9a5d-2995-4a1a-8f04-4e5a8b41324e',
+    },
+    {
+        title: 'Korean Army Stew (Budae Jjigae)',
+        image: 'https://www.figma.com/api/mcp/asset/570dd010-f393-4d46-ac24-331169a80c5b',
+    },
+    {
+        title: 'Shin Ramyun stir-fry',
+        image: 'https://www.figma.com/api/mcp/asset/53be980e-5b13-472a-bd08-b2f64d90efb5',
+    },
 ]
 
 const relatedProducts = [
@@ -71,23 +81,24 @@ const relatedProducts = [
 
         <section class="recipe">
             <h2>Opskrifter med dette produkt</h2>
-
             <div class="recipe-grid">
-                <article v-for="[title, image] in recipes" :key="title">
-                    <img :src="image" :alt="title" />
-                    <h3>{{ title }}</h3>
-                </article>
+                <MySwiper :items="recipes" v-slot="{ item }">
+                    <article>
+                        <img :src="item.image" :alt="item.title" />
+                        <h3>{{ item.title }}</h3>
+                    </article>
+                </MySwiper>
             </div>
         </section>
+
         <section class="related">
             <h2>Relaterede produkter</h2>
-
             <div class="related-grid">
-                <SingleProductCard v-for="product in relatedProducts" :key="product.title" :product="product" />
+                <MySwiper :items="relatedProducts" v-slot="{ item }">
+                    <SingleProductCard :product="item" />
+                </MySwiper>
             </div>
         </section>
-
-        <MySwiper />
     </main>
 </template>
 
@@ -114,7 +125,7 @@ const relatedProducts = [
     object-fit: contain;
 }
 
-.product-info{
+.product-info {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
@@ -124,12 +135,6 @@ const relatedProducts = [
     font-size: var(--font-small);
     font-weight: var(--weight-medium);
     /* color: #4f4f4f;  CHANGE WHEN EVER ROOT COLORS ADDED*/
-}
-
-.recipe, .related{
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
 }
 
 .price {
@@ -162,21 +167,13 @@ const relatedProducts = [
     bottom: 8px;
     width: 100%;
     height: 2px;
-
     background: #000;
-}
-
-.recipe-grid,
-.related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: var(--space-lg);
 }
 
 .recipe-grid article {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .recipe-grid img {
@@ -184,5 +181,45 @@ const relatedProducts = [
     aspect-ratio: 16 / 10;
     object-fit: cover;
     border-radius: 6px;
+}
+
+.recipe-grid :deep(.swiper-slide) {
+    width: calc(33.333% - 10.666px);
+}
+
+.related-grid :deep(.swiper-slide) {
+    width: calc(33.333% - 10.666px);
+}
+
+.recipe,
+.related {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+@media (max-width: 768px) {
+
+    section.product {
+        display: block;
+        padding-bottom: var(--space-xl);
+    }
+
+    section.recipe {
+        padding-bottom: var(--space-xl);
+    }
+
+    section.related {
+        padding-bottom: var(--space-xl);
+    }
+
+    .recipe-grid :deep(.swiper-slide) {
+        width: 100%;
+
+    }
+
+    .related-grid :deep(.swiper-slide) {
+        width: 100%;
+    }
 }
 </style>

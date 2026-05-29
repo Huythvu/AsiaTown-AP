@@ -8,6 +8,6 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/icon',
     '@nuxt/image',
-    '@nuxtjs/strapi'
+    '@nuxtjs/strapi',
   ]
 })
