@@ -22,7 +22,6 @@ const recipes = computed(() => recipeData.value?.data || []);
           Autentiske asiatiske <br />
           <span>råvarer & specialiteter</span>
         </h1>
-
         <p>
           Udforsk vores store udvalg af nudler, saucer, snacks og friske varer
           direkte fra Asien. Alt hvad du behøver til dit asiatiske køkken.
