@@ -3,23 +3,7 @@ const { data, error } = await useFetch(
   'https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*'
 )
 
-const products = computed(() =>
-  data.value?.data.map(product => ({
-    id: product.id,
-    slug: product.Slug,
-    title: product.Title,
-    price: product.Pris,
-    description: product.ProduktBeskrivelse,
-    nutrition: product.Naeringsindhold,
-    brand: product.brand?.Brand,
-    country: product.land?.Land,
-    categories: product.kategoriers?.map(k => k.Kategori) ?? [],
-    types: product.types?.map(t => t.Type) ?? [],
-    image: product.Image?.[0]?.url,
-    imageSmall: product.Image?.[0]?.formats?.small?.url,
-    imageMedium: product.Image?.[0]?.formats?.medium?.url,
-  })) ?? []
-)
+const products = computed(() => data.value?.data || [])
 </script>
 
 <template>
@@ -60,7 +44,14 @@ const products = computed(() =>
         </div>
 
         <div v-if="products.length > 0" class="product-list">
-          <SingleProductCard v-for="product in products" :key="product.id" :product="product" />
+          <SingleProductCard v-for="product in products" 
+            :key="product.id" 
+            :title="product.Title" 
+            :slug="product.Slug"
+            :price="product.Pris" 
+            :category="product.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'"
+            :image="product.Image?.[0]?.url" 
+            :image-small="product.Image?.[0]?.formats?.small?.url" />
         </div>
         <div v-else-if="error">
           <p>Der skete en fejl med at hente produkter.</p>

@@ -1,24 +1,32 @@
 <script setup>
-defineProps({
-    product: {
-        type: Object,
-        required: true
-    }
-})
+const props = defineProps({
+    title: String,
+    slug: String,
+    price: Number,
+    category: String,
+    image: String,
+    imageSmall: String,
+});
 </script>
 
 <template>
-    <div class="product-card">
+    <NuxtLink :to="`/products/${slug}`" class="product-card">
         <div class="image-wrapper">
-            <NuxtImg :src="product.imageSmall ?? product.image" :alt="product.title" class="product-image" />
+            <NuxtImg 
+            :src="imageSmall || image" 
+            :alt="title" 
+            class="product-image" />
         </div>
+
         <div class="content">
-            <p class="category">{{ product.categories[0] }}</p>
-            <h4 class="title">{{ product.title }}</h4>
-            <h4 class="price">{{ product.price }} kr.</h4>
+            <p class="category">{{ category }}</p>
+            <h4 class="title">{{ title }}</h4>
+            <h4 class="price">{{ price }} kr.</h4>
         </div>
-    </div>
+    </NuxtLink>
 </template>
+
+
 
 
 <style scoped>
