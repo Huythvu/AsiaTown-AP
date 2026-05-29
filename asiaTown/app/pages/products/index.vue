@@ -4,6 +4,21 @@ const { data, error } = await useFetch(
 )
 
 const products = computed(() => data.value?.data || [])
+
+const {
+  selectedFilters,
+  selectedMaxPrice,
+  filterGroups,
+  filteredProducts,
+  minPrice,
+  maxPrice,
+} = useProductFilters(products, {
+  showCategoryFilter: true,
+  showTypeFilter: true,
+  showBrandFilter: true,
+  showCountryFilter: true,
+  minPrice: 0,
+})
 </script>
 
 <template>
@@ -15,19 +30,15 @@ const products = computed(() => data.value?.data || [])
     </header>
 
     <section class="product-layout">
-      <aside class="filter">
-        <div class="filter-text">
-          <Icon name="teenyicons:adjust-horizontal-solid" />
-          <h4>Filtre</h4>
-        </div>
 
-        <div class="filterbackgroundtest"></div>
-      </aside>
+      <ProductFilter :filter-groups="filterGroups" :selected-filters="selectedFilters"
+        :selected-max-price="selectedMaxPrice" :min-price="minPrice" :max-price="maxPrice"
+        @update:selected-filters="selectedFilters = $event" @update:selected-max-price="selectedMaxPrice = $event"
+        @reset-filters="resetFilters" />
 
       <div class="product-content">
         <div class="toolbar">
-          <p class="product-count">{{ products.length }} produkter</p>
-
+          <p class="product-count">{{ filteredProducts.length }} produkter</p>
           <button class="mobile-filter-button" type="button">
             <Icon name="teenyicons:adjust-horizontal-solid" />
             Filtre
@@ -43,14 +54,10 @@ const products = computed(() => data.value?.data || [])
           </div>
         </div>
 
-        <div v-if="products.length > 0" class="product-list">
-          <SingleProductCard v-for="product in products" 
-            :key="product.id" 
-            :title="product.Title" 
-            :slug="product.Slug"
-            :price="product.Pris" 
-            :category="product.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'"
-            :image="product.Image?.[0]?.url" 
+        <div v-if="filteredProducts.length > 0" class="product-list">
+          <SingleProductCard v-for="product in filteredProducts" :key="product.id" :title="product.Title"
+            :slug="product.Slug" :price="product.Pris"
+            :category="product.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'" :image="product.Image?.[0]?.url"
             :image-small="product.Image?.[0]?.formats?.small?.url" />
         </div>
         <div v-else-if="error">
