@@ -188,7 +188,7 @@ const relatedProducts = [
 }
 
 .related-grid :deep(.swiper-slide) {
-    width: calc(33.333% - 10.666px);
+    width: calc(25% - 12.666px);
 }
 
 .recipe,
