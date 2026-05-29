@@ -112,49 +112,37 @@ const filteredProducts = computed(() => {
   top: 100%;
   left: 0;
   right: 0;
-
   background: white;
   border: 1px solid #ddd;
   border-radius: 1rem;
-
   margin-top: 0.5rem;
-
   display: flex;
   flex-direction: column;
-
   z-index: 100;
 }
 
 .search {
   position: relative;
-
   flex: 1;
   display: flex;
   align-items: center;
-
   border: 1px solid #ddd;
   border-radius: 999px;
-
   background: white;
 }
 
 .search input {
   flex: 1;
-
   padding: 1rem 1.5rem;
-
   border: none;
   outline: none;
-
   background: transparent;
 }
 
 .search button {
   border: none;
   background: transparent;
-
   padding-inline: 1.5rem;
-
   cursor: pointer;
 }
 
