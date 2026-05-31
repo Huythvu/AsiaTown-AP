@@ -4,7 +4,7 @@ import Fuse from "fuse.js";
 const search = ref("");
 
 const { data } = await useFetch(
-  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*"
+  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*",
 );
 
 const products = computed(() => data.value?.data || []);
@@ -13,14 +13,11 @@ const filteredProducts = computed(() => {
   if (!search.value.trim()) return [];
 
   const fuse = new Fuse(products.value, {
-    keys: ["Title"],
-    includeScore: true,
-    threshold: 0.4,
+    keys: ["Title", "kategoriers.Kategori"],
+    threshold: 0.3,
   });
 
   const results = fuse.search(search.value);
-
-  console.log(results);
 
   return results.map((result) => result.item);
 });
@@ -47,7 +44,7 @@ const filteredProducts = computed(() => {
             {{ product.Title }}
           </NuxtLink>
         </div>
-        <button type="submit">
+        <button>
           <Icon name="mdi:magnify" class="search-icon" />
         </button>
       </div>
@@ -98,15 +95,6 @@ const filteredProducts = computed(() => {
   width: 5rem;
 }
 
-.search {
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
-  border-radius: 999px;
-  overflow: visible;
-}
 .search-results {
   position: absolute;
   top: 100%;
