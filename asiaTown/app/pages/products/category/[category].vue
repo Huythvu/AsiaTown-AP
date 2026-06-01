@@ -1,14 +1,27 @@
 <script setup>
 const route = useRoute()
 
-// e.g. /kategori/nudler  ->  "nudler"
 const categoryParam = computed(() => route.params.category)
 
+// Hent kategori + headerbillede
+const { data: categoryData } = await useFetch(
+  'https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/kategoris',
+  {
+    query: {
+      'filters[Kategori][$eqi]': categoryParam,
+      'populate': 'KategoriHeader',
+    },
+  }
+)
+
+const category = computed(() => categoryData.value?.data?.[0] || null)
+const categoryHeader = computed(() => category.value?.KategoriHeader || null)
+
+// Hent produkter i kategorien
 const { data, error } = await useFetch(
   'https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products',
   {
     query: {
-      // $eqi = case-insensitive match, so "nudler" matches "Nudler"
       'filters[kategoriers][Kategori][$eqi]': categoryParam,
       populate: '*',
     },
@@ -28,7 +41,7 @@ const {
   activeFilterCount,
   resetFilters,
 } = useProductFilters(products, {
-  showCategoryFilter: false, // already scoped to one category
+  showCategoryFilter: false,
   showTypeFilter: true,
   showBrandFilter: true,
   showCountryFilter: true,
@@ -37,27 +50,23 @@ const {
 </script>
 
 <template>
+  <nav>
+  </nav>
   <main>
-    <header>
-      <p>breadCrumb</p>
-      <nuxtimg v-if="products.length > 0" :src="products[0].Image?.[0]?.url" width="600" height="400" alt="Category image"
-        class="category-image" />
-      <h1>{{ categoryParam }}</h1>
-    </header>
+    <header class="category-hero">
+      <NuxtImg v-if="categoryHeader" :src="categoryHeader.formats?.large?.url || categoryHeader.url" width="1920"
+        height="300" :alt="`${category?.Kategori} header billede`" class="category-image" />
 
-    <section class="product-layout">
-      <ProductFilter
-      :filter-groups="filterGroups"
-      :selected-filters="selectedFilters"
-      :selected-max-price="selectedMaxPrice"
-      :min-price="minPrice"
-      :max-price="maxPrice"
-      :has-active-filters="hasActiveFilters"
-      :active-filter-count="activeFilterCount"
-      @update:selected-filters="selectedFilters = $event"
-      @update:selected-max-price="selectedMaxPrice = $event"
-      @reset="resetFilters"
-/>
+      <h1 class="category-title">{{ category?.Kategori }}</h1>
+    </header>
+    <p>breadCrumb</p>
+
+    <section class="product-layout ">
+      <ProductFilter :filter-groups="filterGroups" :selected-filters="selectedFilters"
+        :selected-max-price="selectedMaxPrice" :min-price="minPrice" :max-price="maxPrice"
+        :has-active-filters="hasActiveFilters" :active-filter-count="activeFilterCount"
+        @update:selected-filters="selectedFilters = $event" @update:selected-max-price="selectedMaxPrice = $event"
+        @reset="resetFilters" />
       <div class="product-content">
         <div class="toolbar">
           <p class="product-count">{{ filteredProducts.length }} produkter</p>
@@ -94,12 +103,23 @@ const {
 </template>
 
 <style scoped>
-/* Maybe make this header spacing a global value and add a margin buttom*/
 header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.category-image {
+  object-fit: cover;
+}
+
+.category-title {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  color: white;
+  z-index: 2;
 }
 
 .product-layout {
@@ -172,6 +192,7 @@ header {
   header {
     gap: var(--space-sm);
     margin-bottom: var(--space-md);
+    height: 220px;
   }
 
   .mobile-search input {
@@ -230,7 +251,7 @@ header {
   }
 
   .product-list {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 24px;
   }
 }
