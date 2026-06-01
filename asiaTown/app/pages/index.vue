@@ -34,7 +34,7 @@ const recipes = computed(() => recipeData.value?.data || []);
           </NuxtLink>
 
           <NuxtLink to="/opskrifter" class="btn-secondary">
-            Madopskrifter
+            Madopskrifter →
           </NuxtLink>
         </div>
       </div>
@@ -155,9 +155,9 @@ const recipes = computed(() => recipeData.value?.data || []);
 <style scoped>
 /* Hero sektion */
 .hero {
-  padding: 48px;
-  border-radius: 16px;
-  background-color: #f5e1d9;
+  padding: 64px;
+  height: 450px;
+  background-image: url("https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/hero_billede_c6307160f7.png"); 
   position: relative;
   overflow: hidden;
 }
@@ -190,7 +190,7 @@ h1 span {
 }
 
 .btn-secondary {
-  background: #eee;
+  background: white;
   padding: 12px 20px;
   border-radius: 999px;
   color: black;
@@ -318,7 +318,6 @@ h1 span {
   padding-inline: 2rem;
   border: none;
   border-radius: 1.5rem;
-
   background: #ff7300;
   color: white;
 }
@@ -334,7 +333,6 @@ h1 span {
 }
 
 @media (max-width: 768px) {
-  /* HERO */
 
   .hero {
     padding: var(--space-xl);
