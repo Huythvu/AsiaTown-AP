@@ -27,20 +27,14 @@ const filteredProducts = computed(() => {
     <!-- Top navigation -->
     <div class="nav-top">
       <NuxtLink to="/" class="logo">
-        <img
-          src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/asia_Town_1_456a806ff1.png"
-          alt="Asia Town logo"
-        />
+        <img src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/asia_Town_1_456a806ff1.png"
+          alt="Asia Town logo" />
       </NuxtLink>
 
       <div class="search">
         <input v-model="search" type="search" placeholder="Søg i vores butik" />
         <div v-if="search.length > 1" class="search-results">
-          <NuxtLink
-            v-for="product in filteredProducts"
-            :key="product.id"
-            :to="`/products/${product.Slug}`"
-          >
+          <NuxtLink v-for="product in filteredProducts" :key="product.id" :to="`/products/${product.Slug}`">
             {{ product.Title }}
           </NuxtLink>
         </div>
@@ -52,25 +46,75 @@ const filteredProducts = computed(() => {
 
     <!-- Main navigation -->
     <nav class="nav-bottom">
-      <NuxtLink to="/">
-        Alle varer
-        <Icon name="mdi:chevron-down" />
-      </NuxtLink>
+      <div class="nav-item">
+        <NuxtLink to="/products">
+          Alle varer
+          <Icon name="mdi:chevron-down" />
+        </NuxtLink>
+        <div class="dropdown">
+          <NuxtLink to="/products/category/frosne-varer">
+            Frosne varer
+          </NuxtLink>
+          <NuxtLink to="/products/category/friske-varer">
+            Friske varer
+          </NuxtLink>
+          <NuxtLink to="/products/category/snacks">
+            Snacks
+          </NuxtLink>
+          <NuxtLink to="/products/category/Soja-&-Sauces">
+            Soja & Sauces
+          </NuxtLink>
+          <NuxtLink to="/products/category/nudler">
+            Nudler
+          </NuxtLink>
+        </div>
+      </div>
 
-      <NuxtLink to="/products/category/nudler">
-        Nudler
-        <Icon name="mdi:chevron-down" />
-      </NuxtLink>
+      <div class="nav-item">
+        <NuxtLink to="/products/category/nudler">
+          Nudler
+          <Icon name="mdi:chevron-down" />
+        </NuxtLink>
 
-      <NuxtLink to="/products/category/sauces">
-        Soja/Sauce
-        <Icon name="mdi:chevron-down" />
-      </NuxtLink>
+        <div class="dropdown">
+          <NuxtLink to="/products/category/ramen">Instant nudler</NuxtLink>
+          <NuxtLink to="/products/category/udon">Udon nudler</NuxtLink>
+        </div>
+      </div>
+      <div class="nav-item">
+        <NuxtLink to="/products/category/Soja-&-Sauces">
+          Soja/Sauce
+          <Icon name="mdi:chevron-down" />
+        </NuxtLink>
 
-      <NuxtLink to="/products/category/snacks">
-        Snacks
-        <Icon name="mdi:chevron-down" />
-      </NuxtLink>
+        <div class="dropdown">
+          <NuxtLink to="/products/category/chilli">Chilli</NuxtLink>
+          <NuxtLink to="/products/category/eddike">Eddike</NuxtLink>
+          <NuxtLink to="/products/category/marinade">Marinade</NuxtLink>
+          <NuxtLink to="/products/category/mayo">Mayo</NuxtLink>
+          <NuxtLink to="/products/category/pasta">Pasta</NuxtLink>
+          <NuxtLink to="/products/category/sauce">Sauce</NuxtLink>
+          <NuxtLink to="/products/category/soja">Soja</NuxtLink>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <NuxtLink to="/products/category/snacks">
+          Snacks
+          <Icon name="mdi:chevron-down" />
+        </NuxtLink>
+        <div class="dropdown">
+          <NuxtLink to="/products/category/seaweed">
+            Seaweed
+          </NuxtLink>
+          <NuxtLink to="/products/category/slik">
+            Slik
+          </NuxtLink>
+          <NuxtLink to="/products/category/torret-frugt">
+            Tørret frugt
+          </NuxtLink>
+        </div>
+      </div>
 
       <NuxtLink to="/recipes"> Madopskrifter </NuxtLink>
 
@@ -83,6 +127,7 @@ const filteredProducts = computed(() => {
 .navbar {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
+
 .nav-top {
   display: flex;
   align-items: center;
@@ -160,6 +205,40 @@ const filteredProducts = computed(() => {
   gap: var(--space-xs);
   font-weight: var(--weight-label);
   text-decoration: none;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  min-width: 14rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  padding: 0.5rem 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.dropdown a {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: black;
+  font-weight: 400;
+}
+
+.dropdown a:hover {
+  text-decoration: underline;
+}
+
+.nav-item:hover .dropdown {
+  display: flex;
 }
 
 @media (max-width: 768px) {
