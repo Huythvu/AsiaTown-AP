@@ -30,19 +30,6 @@ const decreasePersons = () => {
     persons.value--;
   }
 };
-const breadcrumbs = computed(() => [
-  {
-    label: "Forside",
-    to: "/",
-  },
-  {
-    label: "Madopskrifter",
-    to: "/recipes",
-  },
-  {
-    label: recipe.value?.Title,
-  },
-]);
 </script>
 
 <template>
@@ -103,11 +90,7 @@ const breadcrumbs = computed(() => [
         </div>
 
         <div class="ingredient-list">
-          <div
-            v-for="ingredient in calculatedIngredients"
-            :key="ingredient.id"
-            class="ingredient"
-          >
+          <div v-for="ingredient in calculatedIngredients" :key="ingredient.id" class="ingredient">
             <p>{{ ingredient.Ingredient }}</p>
             <span>
               {{ ingredient.calculatedAmount }}
@@ -120,14 +103,14 @@ const breadcrumbs = computed(() => [
       <div class="steps">
         <p class="label">FREMGANGSMETODE</p>
         <h2>
-          {{ recipe?.Step.filter((step) => step.Instruktion).length }} TRIN
+          {{recipe?.Step.filter((step) => step.Instruktion).length}} TRIN
         </h2>
-        <div
-          v-for="step in recipe?.Step.filter((step) => step.Instruktion)"
-          :key="step.id"
-          class="step"
-        >
-          <div class="step-title">
+        <div v-for="(step, index) in recipe?.Step.filter((step) => step.Instruktion)" :key="step.id" class="step">
+         <div class="step-title">
+            <span class="step-number">
+              {{ String(index + 1).padStart(2, "0") }}
+            </span>
+
             <h3>
               {{ step.Overskrift }}
             </h3>
@@ -182,16 +165,11 @@ const breadcrumbs = computed(() => [
   align-items: center;
   gap: 0.5rem;
 }
+
 .recipe-image img {
-  height: 100%;
   max-height: 400px;
   border-radius: 1rem;
   object-fit: fill;
-}
-
-.recipe-image {
-  width: 100%;
-  max-width: 40rem;
 }
 
 .recipe-content {
@@ -230,7 +208,7 @@ const breadcrumbs = computed(() => [
   border-bottom: 1px solid #ccc;
 }
 
-.steps > h2 {
+.steps h2 {
   margin-block: var(--space-lg);
 }
 
@@ -239,12 +217,6 @@ const breadcrumbs = computed(() => [
   border-bottom: 1px solid #ccc;
 }
 
-.step-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-}
 
 .related-products {
   padding-block: var(--space-3xl);
@@ -260,6 +232,19 @@ const breadcrumbs = computed(() => [
   gap: var(--space-xl);
 }
 
+.step-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.step-number {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #d8a037;
+}
+
 @media (max-width: 768px) {
   main {
     padding-inline: var(--space-lg);
@@ -267,9 +252,7 @@ const breadcrumbs = computed(() => [
 
   .recipe-hero {
     grid-template-columns: 1fr;
-
     gap: var(--space-xl);
-
     padding-block: var(--space-xl);
   }
 
@@ -290,9 +273,7 @@ const breadcrumbs = computed(() => [
 
   .recipe-content {
     grid-template-columns: 1fr;
-
     gap: var(--space-2xl);
-
     padding-block: var(--space-2xl);
   }
 
