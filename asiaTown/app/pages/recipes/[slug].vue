@@ -30,11 +30,25 @@ const decreasePersons = () => {
     persons.value--;
   }
 };
+const breadcrumbs = computed(() => [
+  {
+    label: "Forside",
+    to: "/",
+  },
+  {
+    label: "Madopskrifter",
+    to: "/recipes",
+  },
+  {
+    label: recipe.value?.Title,
+  },
+]);
 </script>
 
 <template>
   <Navdesk />
   <Navmobile />
+  <Breadcrumbs :items="breadcrumbs" />
   <main>
     <section class="recipe-hero">
       <div class="recipe-info">
