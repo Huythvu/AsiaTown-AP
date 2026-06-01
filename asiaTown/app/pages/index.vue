@@ -13,9 +13,6 @@ const recipes = computed(() => recipeData.value?.data || []);
 </script>
 
 <template>
-  <Navdesk />
-  <Navmobile />
-  <Breadcrumbs :items="breadcrumbs" />
   <main>
     <section class="hero">
       <div class="hero-content">

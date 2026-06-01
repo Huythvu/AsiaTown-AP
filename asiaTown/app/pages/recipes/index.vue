@@ -7,10 +7,6 @@ const recipes = computed(() => data.value?.data || []);
 </script>
 
 <template>
-  <Navdesk />
-  <Navmobile />
-  <Breadcrumbs :items="breadcrumbs" />
-
   <main>
     <section class="recipe-hero">
       <div class="overlay"></div>

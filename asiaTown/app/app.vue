@@ -2,7 +2,9 @@
 
 <template>
   <div class="page">
-    <Navbar />
+    <Navdesk />
+    <Navmobile />
+    <Breadcrumbs :items="breadcrumbs" />
 
     <main class="page-main">
       <NuxtPage />
