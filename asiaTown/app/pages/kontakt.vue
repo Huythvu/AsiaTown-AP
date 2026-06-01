@@ -1,6 +1,4 @@
 <script setup>
-const mapImage =
-    'https://www.figma.com/api/mcp/asset/e6932c89-b920-4526-bd29-f249b6dc8a84'
 
 const contactCards = [
     {
@@ -89,7 +87,7 @@ header{
 }
 .contact-layout {
     display: grid;
-    grid-template-columns: minmax(320px, 644px) minmax(320px, 1fr);
+    grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
     gap: clamp(32px, 5vw, 64px);
     align-items: start;
 }
@@ -101,7 +99,7 @@ header{
 
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    grid-template-columns: repeat(2, minmax(min(220px, 100%), 1fr));
     gap: 24px;
 }
 
@@ -153,8 +151,23 @@ header{
 
 .map-wrapper iframe {
     width: 100%;
-    min-width: 750px;
     height: 100%;
     object-fit: cover;
+}
+
+/* Nødvendig for layout skift, ellers map-wrapper for smal */
+@media (max-width: 1300px) {
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+    .map-wrapper {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
