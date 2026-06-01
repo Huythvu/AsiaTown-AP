@@ -24,11 +24,22 @@ const props = defineProps({
     type: Number,
     default: 300,
   },
+
+  hasActiveFilters: {
+    type: Boolean,
+    default: false,
+  },
+
+  activeFilterCount: {
+    type: Number,
+    default: 0,
+  },
 })
 
 const emit = defineEmits([
   'update:selectedFilters',
   'update:selectedMaxPrice',
+  'reset',
 ])
 
 function toggleFilter(groupKey, value) {
@@ -48,28 +59,24 @@ function toggleFilter(groupKey, value) {
 <template>
   <aside class="product-filter">
     <div class="filter-title">
-      <Icon name="teenyicons:adjust-horizontal-solid" />
-      <h4>Filtre</h4>
+      <div class="filter-title-left">
+        <Icon name="teenyicons:adjust-horizontal-solid" />
+        <h4>Filtre</h4>
+      </div>
+
+      <button v-if="hasActiveFilters" class="filter-reset" type="button" @click="emit('reset')">
+        Nulstil ({{ activeFilterCount }})
+      </button>
     </div>
 
-    <template
-      v-for="group in filterGroups"
-      :key="group.key"
-    >
+    <template v-for="group in filterGroups" :key="group.key">
       <section class="filter-section">
         <h5>{{ group.label }}</h5>
 
-        <label
-          v-for="option in group.options"
-          :key="option.value"
-          class="filter-option"
-        >
+        <label v-for="option in group.options" :key="option.value" class="filter-option">
           <div class="checkbox-text">
-            <input
-              type="checkbox"
-              :checked="selectedFilters[group.key]?.includes(option.value)"
-              @change="toggleFilter(group.key, option.value)"
-            >
+            <input type="checkbox" :checked="selectedFilters[group.key]?.includes(option.value)"
+              @change="toggleFilter(group.key, option.value)">
 
             <span>{{ option.label }}</span>
           </div>
@@ -90,14 +97,8 @@ function toggleFilter(groupKey, value) {
         <span>{{ minPrice }} - {{ selectedMaxPrice }} kr.</span>
       </div>
 
-      <input
-        class="price-range"
-        type="range"
-        :min="minPrice"
-        :max="maxPrice"
-        :value="selectedMaxPrice"
-        @input="emit('update:selectedMaxPrice', Number($event.target.value))"
-      >
+      <input class="price-range" type="range" :min="minPrice" :max="maxPrice" :value="selectedMaxPrice"
+        @input="emit('update:selectedMaxPrice', Number($event.target.value))">
 
       <div class="price-bottom">
         <span>{{ minPrice }} kr.</span>
@@ -111,12 +112,11 @@ function toggleFilter(groupKey, value) {
 </template>
 
 <style scoped>
-section{
+section {
   padding: 0;
 }
 
 .product-filter {
-  width: 310px;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -125,13 +125,23 @@ section{
 .filter-title {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.filter-title-left {
+  display: flex;
+  align-items: center;
   gap: var(--space-sm);
 }
 
-.filter-title h4 {
-  font-size: var(--font-h4-desktop);
-  font-weight: 500;
-  color: #1a1a1a;
+.filter-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--font-small);
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .filter-title .iconify {
@@ -146,17 +156,12 @@ section{
 
 .filter-section h5 {
   font-size: var(--font-body);
-  font-weight: 600;
-  color: #1a1a1a;
 }
 
 .filter-option {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-sm);
-  font-size: var(--font-body);
-  color: #1a1a1a;
   cursor: pointer;
 }
 
@@ -169,7 +174,6 @@ section{
 .checkbox-text input {
   width: 18px;
   height: 18px;
-  accent-color: #1a1a1a;
   cursor: pointer;
 }
 
@@ -192,12 +196,18 @@ section{
 
 .price-range {
   width: 100%;
-  accent-color: #1a1a1a;
+  accent-color: black;
 }
 
 .price-bottom {
   display: flex;
   justify-content: space-between;
   font-size: var(--font-small);
+}
+
+@media (max-width: 768px) {
+  .product-filter {
+    display: none;
+  }
 }
 </style>

@@ -12,6 +12,9 @@ const {
   filteredProducts,
   minPrice,
   maxPrice,
+  hasActiveFilters,
+  activeFilterCount,
+  resetFilters,
 } = useProductFilters(products, {
   showCategoryFilter: true,
   showTypeFilter: true,
@@ -30,12 +33,18 @@ const {
     </header>
 
     <section class="product-layout">
-
-      <ProductFilter :filter-groups="filterGroups" :selected-filters="selectedFilters"
-        :selected-max-price="selectedMaxPrice" :min-price="minPrice" :max-price="maxPrice"
-        @update:selected-filters="selectedFilters = $event" @update:selected-max-price="selectedMaxPrice = $event"
-        @reset-filters="resetFilters" />
-
+      <ProductFilter
+      :filter-groups="filterGroups"
+      :selected-filters="selectedFilters"
+      :selected-max-price="selectedMaxPrice"
+      :min-price="minPrice"
+      :max-price="maxPrice"
+      :has-active-filters="hasActiveFilters"
+      :active-filter-count="activeFilterCount"
+      @update:selected-filters="selectedFilters = $event"
+      @update:selected-max-price="selectedMaxPrice = $event"
+      @reset="resetFilters"
+/>
       <div class="product-content">
         <div class="toolbar">
           <p class="product-count">{{ filteredProducts.length }} produkter</p>

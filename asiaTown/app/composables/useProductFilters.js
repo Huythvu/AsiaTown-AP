@@ -34,19 +34,15 @@ export function useProductFilters(products, options = {}) {
     if (key === 'categories') {
       return product.kategoriers?.map(category => category.Kategori) ?? []
     }
-
     if (key === 'types') {
       return product.types?.map(type => type.Type) ?? []
     }
-
     if (key === 'brands') {
       return product.brand?.Brand ? [product.brand.Brand] : []
     }
-
     if (key === 'countries') {
       return product.land?.Land ? [product.land.Land] : []
     }
-
     return []
   }
 
@@ -74,66 +70,73 @@ export function useProductFilters(products, options = {}) {
   function createOptions(key) {
     const optionCounts = {}
 
+    // Seed every possible value at 0 so unavailable options stay visible
+    products.value.forEach(product => {
+      getProductValues(product, key).forEach(value => {
+        optionCounts[value] ??= 0
+      })
+    })
+
+    // Count only the products that match the current filters
     products.value
       .filter(product => productMatchesFilters(product, key))
       .forEach(product => {
-        const values = getProductValues(product, key)
-
-        values.forEach(value => {
-          optionCounts[value] = (optionCounts[value] || 0) + 1
+        getProductValues(product, key).forEach(value => {
+          optionCounts[value]++
         })
       })
 
     return Object.entries(optionCounts)
-      .map(([value, count]) => ({
-        label: value,
-        value,
-        count,
-      }))
+      .map(([value, count]) => ({ label: value, value, count }))
       .sort((a, b) => a.label.localeCompare(b.label))
   }
 
   const filterGroups = computed(() => {
-    const groups = []
+    const definitions = [
+      { key: 'categories', label: 'Kategori', show: showCategoryFilter },
+      { key: 'types', label: 'Type', show: showTypeFilter },
+      { key: 'brands', label: 'Brands', show: showBrandFilter },
+      { key: 'countries', label: 'Land', show: showCountryFilter },
+    ]
 
-    if (showCategoryFilter) {
-      groups.push({
-        key: 'categories',
-        label: 'Kategori',
-        options: createOptions('categories'),
-      })
-    }
-
-    if (showTypeFilter) {
-      groups.push({
-        key: 'types',
-        label: 'Type',
-        options: createOptions('types'),
-      })
-    }
-
-    if (showBrandFilter) {
-      groups.push({
-        key: 'brands',
-        label: 'Brands',
-        options: createOptions('brands'),
-      })
-    }
-
-    if (showCountryFilter) {
-      groups.push({
-        key: 'countries',
-        label: 'Land',
-        options: createOptions('countries'),
-      })
-    }
-
-    return groups.filter(group => group.options.length > 0)
+    return definitions
+      .filter(definition => definition.show)
+      .map(definition => ({
+        key: definition.key,
+        label: definition.label,
+        options: createOptions(definition.key),
+      }))
+      .filter(group => group.options.length > 0)
   })
 
-  const filteredProducts = computed(() => {
-    return products.value.filter(product => productMatchesFilters(product))
+  const filteredProducts = computed(() =>
+    products.value.filter(product => productMatchesFilters(product))
+  )
+
+  // Reset / active-filter helpers
+  const isPriceActive = computed(() =>
+    selectedMaxPrice.value !== null &&
+    selectedMaxPrice.value < dynamicMaxPrice.value
+  )
+
+  const activeFilterCount = computed(() => {
+    const selectionCount = Object.values(selectedFilters.value)
+      .reduce((total, values) => total + values.length, 0)
+
+    return selectionCount + (isPriceActive.value ? 1 : 0)
   })
+
+  const hasActiveFilters = computed(() => activeFilterCount.value > 0)
+
+  function resetFilters() {
+    selectedFilters.value = {
+      categories: [],
+      types: [],
+      brands: [],
+      countries: [],
+    }
+    selectedMaxPrice.value = dynamicMaxPrice.value
+  }
 
   return {
     selectedFilters,
@@ -142,5 +145,8 @@ export function useProductFilters(products, options = {}) {
     filteredProducts,
     minPrice,
     maxPrice: dynamicMaxPrice,
+    hasActiveFilters,
+    activeFilterCount,
+    resetFilters,
   }
 }
