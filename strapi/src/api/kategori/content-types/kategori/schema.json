@@ -19,6 +19,16 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "inversedBy": "kategoriers"
+    },
+    "KategoriHeader": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
