@@ -41,10 +41,6 @@ const activeTab = ref('beskrivelse')
 
 <template>
     <main>
-        <nav class="breadcrumbs">
-            <p>Breadcrumbs Later Fix</p>
-        </nav>
-
         <section class="product">
             <div class="product-img">
                 <img :src="product.Image?.[0]?.url" :alt="product.Title" />

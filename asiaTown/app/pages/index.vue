@@ -75,7 +75,7 @@ const recipes = computed(() => recipeData.value?.data || []);
       <div class="category-grid">
         <article class="category-card">
           <img
-            src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?q=80&w=1200&auto=format&fit=crop"
+            src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/nudler_bb774519b5.png"
             alt="Nudler"
           />
 
@@ -86,7 +86,7 @@ const recipes = computed(() => recipeData.value?.data || []);
 
         <article class="category-card">
           <img
-            src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop"
+            src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/sauces_18bc6018f1.png"
             alt="Soja"
           />
 
@@ -97,7 +97,7 @@ const recipes = computed(() => recipeData.value?.data || []);
 
         <article class="category-card">
           <img
-            src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=1200&auto=format&fit=crop"
+            src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/snacks_3cffed9894.png"
             alt="Snacks"
           />
 
@@ -253,7 +253,9 @@ h1 span {
   bottom: 2rem;
   color: white;
 }
-
+.category-card:first-child img {
+  object-position: 75% center;
+}
 .udvalgt {
   padding-top: var(--section-padding-y);
 }

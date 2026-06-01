@@ -59,8 +59,6 @@ const {
 
       <h1 class="category-title">{{ category?.Kategori }}</h1>
     </header>
-    <p>breadCrumb</p>
-
     <section class="product-layout ">
       <ProductFilter :filter-groups="filterGroups" :selected-filters="selectedFilters"
         :selected-max-price="selectedMaxPrice" :min-price="minPrice" :max-price="maxPrice"

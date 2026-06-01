@@ -43,6 +43,10 @@ const breadcrumbs = computed(() =>
   gap: 0.5rem;
 }
 
+.iconify {
+  font-size: 16.8px;
+}
+
 .breadcrumbs a:hover {
   text-decoration: underline;
 }

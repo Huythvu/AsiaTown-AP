@@ -27,7 +27,6 @@ const {
 <template>
   <main>
     <header>
-      <p>breadCrumb</p>
       <h1>Alle Varer</h1>
       <p>Udforsk vores komplette sortiment af asiatiske produkter.</p>
     </header>

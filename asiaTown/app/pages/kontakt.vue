@@ -27,7 +27,6 @@ const contactCards = [
 <template>
     <main>
         <header class="page-header">
-            <p>Breadcrumb soon</p>
             <h1>Kontakt</h1>
             <p>Vi ser frem til at høre fra dig</p>
         </header>

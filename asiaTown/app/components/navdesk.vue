@@ -57,17 +57,17 @@ const filteredProducts = computed(() => {
         <Icon name="mdi:chevron-down" />
       </NuxtLink>
 
-      <NuxtLink to="/">
+      <NuxtLink to="/products/category/nudler">
         Nudler
         <Icon name="mdi:chevron-down" />
       </NuxtLink>
 
-      <NuxtLink to="/">
+      <NuxtLink to="/products/category/sauces">
         Soja/Sauce
         <Icon name="mdi:chevron-down" />
       </NuxtLink>
 
-      <NuxtLink to="/">
+      <NuxtLink to="/products/category/snacks">
         Snacks
         <Icon name="mdi:chevron-down" />
       </NuxtLink>

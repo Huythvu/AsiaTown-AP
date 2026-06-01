@@ -33,9 +33,6 @@ const decreasePersons = () => {
 </script>
 
 <template>
-  <Navdesk />
-  <Navmobile />
-  <Breadcrumbs :items="breadcrumbs" />
   <main>
     <section class="recipe-hero">
       <div class="recipe-info">
@@ -123,6 +120,7 @@ const decreasePersons = () => {
     </section>
     <section class="related-products">
       <h2>Relaterede produkter</h2>
+      
       <div class="product-grid">
         <ProductCard v-for="product in recipe?.products" :key="product.id" />
       </div>
