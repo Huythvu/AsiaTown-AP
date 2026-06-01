@@ -33,6 +33,7 @@ const {
     </header>
 
     <section class="product-layout">
+      
       <ProductFilter
       :filter-groups="filterGroups"
       :selected-filters="selectedFilters"
@@ -81,7 +82,6 @@ const {
 </template>
 
 <style scoped>
-/* Maybe make this header spacing a global value and add a margin buttom*/
 header {
   display: flex;
   flex-direction: column;
@@ -91,16 +91,8 @@ header {
 
 .product-layout {
   display: grid;
-  grid-template-columns: 310px 1fr;
+  grid-template-columns: minmax(180px, 310px) minmax(310px, 1fr);
   gap: var(--space-lg);
-}
-
-/* Placeholder sizing for the filter while it's empty */
-.filter .filterbackgroundtest {
-  width: 310px;
-  height: 700px;
-  background: #f0f0f0;
-  /* so you can actually see it */
 }
 
 .filter-text {
