@@ -26,9 +26,6 @@ const props = defineProps({
     </NuxtLink>
 </template>
 
-
-
-
 <style scoped>
 main {
     background-color: seagreen;

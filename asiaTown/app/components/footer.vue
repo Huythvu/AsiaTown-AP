@@ -123,7 +123,6 @@ const footerLinks = {
 <style scoped>
 .site-footer {
     color: #ffffff;
-    /* FIX FOOTER LATER ITS TOO SHORT FOR CONTACT PAGE! */
 }
 
 .iconify {

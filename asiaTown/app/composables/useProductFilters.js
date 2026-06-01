@@ -70,14 +70,12 @@ export function useProductFilters(products, options = {}) {
   function createOptions(key) {
     const optionCounts = {}
 
-    // Seed every possible value at 0 so unavailable options stay visible
     products.value.forEach(product => {
       getProductValues(product, key).forEach(value => {
         optionCounts[value] ??= 0
       })
     })
 
-    // Count only the products that match the current filters
     products.value
       .filter(product => productMatchesFilters(product, key))
       .forEach(product => {
@@ -113,7 +111,6 @@ export function useProductFilters(products, options = {}) {
     products.value.filter(product => productMatchesFilters(product))
   )
 
-  // Reset / active-filter helpers
   const isPriceActive = computed(() =>
     selectedMaxPrice.value !== null &&
     selectedMaxPrice.value < dynamicMaxPrice.value
