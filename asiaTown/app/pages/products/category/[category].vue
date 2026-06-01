@@ -40,8 +40,9 @@ const {
   <main>
     <header>
       <p>breadCrumb</p>
-      <h1>Alle Varer</h1>
-      <p>Udforsk vores komplette sortiment af asiatiske produkter.</p>
+      <nuxtimg v-if="products.length > 0" :src="products[0].Image?.[0]?.url" width="600" height="400" alt="Category image"
+        class="category-image" />
+      <h1>{{ categoryParam }}</h1>
     </header>
 
     <section class="product-layout">
