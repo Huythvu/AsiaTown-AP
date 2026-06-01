@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/style.css'],
   
+
   modules: [
     '@nuxt/fonts',
     '@nuxt/icon',

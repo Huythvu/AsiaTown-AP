@@ -1,34 +1,51 @@
 <script setup>
-// TODO: replace static lists with dynamic data from Strapi (or derive from products)
-const categories = [
-  { icon: '🍜', name: 'Nudler' },
-  { icon: '🫗', name: 'Soja & Sauce' },
-  { icon: '🍘', name: 'Snacks' },
-  { icon: '🧃', name: 'Drikke Varer' },
-  { icon: '🥬', name: 'Friske Varer' },
-  { icon: '🧊', name: 'Frosne Varer' },
-  { icon: '☕', name: 'Kaffe & Te' },
-  { icon: '📦', name: 'Diverse' },
-]
+const route = useRoute();
 
-const brands = [
-  { name: 'Nongshim', count: 6 },
-  { name: 'Samyang', count: 4 },
-  { name: 'CJ', count: 4 },
-]
-
-const countries = [
-  { name: 'Sydkorea', count: 6 },
-  { name: 'Japan', count: 4 },
-  { name: 'Kina', count: 4 },
-  { name: 'Vietnam', count: 5 },
-  { name: 'Thailand', count: 6 },
-]
+const breadcrumbs = computed(() =>
+  route.path
+    .split("/")
+    .filter(Boolean)
+    .map((segment, index, array) => ({
+      label: segment,
+      to: "/" + array.slice(0, index + 1).join("/"),
+    }))
+);
 </script>
 
 <template>
+  <nav class="breadcrumbs">
+    <NuxtLink to="/"> <Icon name="mdi:home" />Forside</NuxtLink>
 
+    <template v-for="crumb in breadcrumbs" :key="crumb.to">
+      <span> / </span>
+      <NuxtLink :to="crumb.to">
+        {{ crumb.label }}
+      </NuxtLink>
+    </template>
+  </nav>
 </template>
 
-<style scoped>
+<style scoped>  
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--breadcrumb-gap);
+  padding: 1rem var(--space-3xl);
+  font-size: var(--breadcrumb-font-size);
+  font-weight: var(--weight-breadcrumb);
+  color: #666;
+
+}
+
+.breadcrumbs a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+
 </style>
