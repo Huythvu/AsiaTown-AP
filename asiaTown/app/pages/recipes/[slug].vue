@@ -146,8 +146,9 @@ const decreasePersons = () => {
         </div>
       </div>
     </section>
-    <section class="related-products">
+    <section v-if="relatedProducts.length" class="related-products">
       <h2>Relaterede produkter</h2>
+
       <div class="product-grid">
         <SingleProductCard
           v-for="product in relatedProducts"
