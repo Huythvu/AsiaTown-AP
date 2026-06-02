@@ -1,9 +1,37 @@
 <script setup></script>
 
 <template>
-  <div>
-    <NuxtPage />
+  <div class="page">
+    <Navdesk />
+    <Navmobile />
+    <Breadcrumbs :items="breadcrumbs" />
+
+    <main class="page-main">
+      <NuxtPage />
+    </main>
+
+    <Footer />
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-main {
+  padding: 16px 64px 0;
+  width: 100%;
+  max-width: 1920px;
+  align-self: center;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .page-main {
+    padding: 16px 32px 0;
+  }
+}
+</style>

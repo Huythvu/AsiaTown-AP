@@ -124,9 +124,6 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
-main {
-    margin: 64px;
-}
 
 h1,
 h2,
@@ -185,12 +182,6 @@ ol {
    ========================================================================== */
 body {
   font-family: 'Roboto', sans-serif;
-}
-
-main{
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 16px 64px 0px;
 }
 
 h1,
@@ -259,6 +250,10 @@ ol {
     /* 24px */
     --font-h4-desktop: var(--font-h4-mobile);
     /* 20px */
+  }
+
+  main{
+    padding: 16px 32px 0;
   }
 }
 

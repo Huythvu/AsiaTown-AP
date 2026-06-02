@@ -5,14 +5,8 @@ const props = defineProps({
   description: String,
   image: String,
   time: String,
-  persons: String,
+  persons: Number,
   difficulty: String,
-});
-
-const shortDescription = computed(() => {
-  return props.description.length > 85
-    ? props.description.slice(0, 85) + "..."
-    : props.description;
 });
 </script>
 <template>
@@ -28,7 +22,7 @@ const shortDescription = computed(() => {
       <div class="content">
         <h4>{{ title }}</h4>
         <p class="description">
-          {{ shortDescription }}
+          {{ description }}
         </p>
         <div class="meta">
           <div class="meta-item">
@@ -67,6 +61,12 @@ const shortDescription = computed(() => {
   object-fit: cover;
 }
 
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .badge {
   position: absolute;
   top: var(--space-md);

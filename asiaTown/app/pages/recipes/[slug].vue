@@ -3,9 +3,27 @@ import { ref, computed } from "vue";
 
 const route = useRoute();
 
+// Fetch recipe og produkter for at kunne vise relaterede produkter i bunden af siden
+
 const { data } = await useFetch(
-  `https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?filters[Slug][$eq]=${route.params.slug}&populate=*`
+  `https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?filters[Slug][$eq]=${route.params.slug}&populate=*`,
 );
+
+const { data: productsData } = await useFetch(
+  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*",
+);
+
+const relatedProducts = computed(() => {
+  if (!recipe.value?.products || !productsData.value?.data) return [];
+
+  return productsData.value.data.filter((product) =>
+    recipe.value.products.some(
+      (related) => related.documentId === product.documentId,
+    ),
+  );
+});
+
+// Lommeregner for ingredienser baseret på antal personer
 
 const recipe = computed(() => data.value?.data[0]);
 
@@ -33,13 +51,11 @@ const decreasePersons = () => {
 </script>
 
 <template>
-  <Navdesk />
-  <Navmobile />
   <main>
     <section class="recipe-hero">
       <div class="recipe-info">
         <span class="tag">
-          {{ recipe?.Difficulty }}
+          {{ recipe?.lands[0]?.Land }}
         </span>
         <h1>
           {{ recipe?.Title }}
@@ -109,11 +125,17 @@ const decreasePersons = () => {
           {{ recipe?.Step.filter((step) => step.Instruktion).length }} TRIN
         </h2>
         <div
-          v-for="step in recipe?.Step.filter((step) => step.Instruktion)"
+          v-for="(step, index) in recipe?.Step.filter(
+            (step) => step.Instruktion,
+          )"
           :key="step.id"
           class="step"
         >
           <div class="step-title">
+            <span class="step-number">
+              {{ String(index + 1).padStart(2, "0") }}
+            </span>
+
             <h3>
               {{ step.Overskrift }}
             </h3>
@@ -124,10 +146,20 @@ const decreasePersons = () => {
         </div>
       </div>
     </section>
-    <section class="related-products">
+    <section v-if="relatedProducts.length" class="related-products">
       <h2>Relaterede produkter</h2>
+
       <div class="product-grid">
-        <ProductCard v-for="product in recipe?.products" :key="product.id" />
+        <SingleProductCard
+          v-for="product in relatedProducts"
+          :key="product.id"
+          :title="product.Title"
+          :slug="product.Slug"
+          :price="product.Pris"
+          :category="product.kategoriers?.[0]?.Kategori"
+          :image="product.Image?.[0]?.url"
+          :image-small="product.Image?.[0]?.formats?.small?.url"
+        />
       </div>
     </section>
   </main>
@@ -168,16 +200,11 @@ const decreasePersons = () => {
   align-items: center;
   gap: 0.5rem;
 }
+
 .recipe-image img {
-  height: 100%;
   max-height: 400px;
   border-radius: 1rem;
   object-fit: fill;
-}
-
-.recipe-image {
-  width: 100%;
-  max-width: 40rem;
 }
 
 .recipe-content {
@@ -216,20 +243,13 @@ const decreasePersons = () => {
   border-bottom: 1px solid #ccc;
 }
 
-.steps > h2 {
+.steps h2 {
   margin-block: var(--space-lg);
 }
 
 .step {
   padding-block: var(--space-xl);
   border-bottom: 1px solid #ccc;
-}
-
-.step-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
 }
 
 .related-products {
@@ -242,8 +262,22 @@ const decreasePersons = () => {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: var(--space-xl);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.step-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.step-number {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #d8a037;
 }
 
 @media (max-width: 768px) {
@@ -253,9 +287,7 @@ const decreasePersons = () => {
 
   .recipe-hero {
     grid-template-columns: 1fr;
-
     gap: var(--space-xl);
-
     padding-block: var(--space-xl);
   }
 
@@ -276,9 +308,7 @@ const decreasePersons = () => {
 
   .recipe-content {
     grid-template-columns: 1fr;
-
     gap: var(--space-2xl);
-
     padding-block: var(--space-2xl);
   }
 

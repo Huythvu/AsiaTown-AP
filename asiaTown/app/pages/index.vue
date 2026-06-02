@@ -1,20 +1,18 @@
 <script setup>
 const { data } = await useFetch(
-  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*&pagination[limit]=8"
+  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*&pagination[limit]=8",
 );
 
 const products = computed(() => data.value?.data.slice(0, 8) || []);
 
 const { data: recipeData } = await useFetch(
-  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?populate=*&pagination[limit]=3"
+  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?populate=*&pagination[limit]=3",
 );
 
 const recipes = computed(() => recipeData.value?.data || []);
 </script>
 
 <template>
-  <Navdesk />
-  <Navmobile />
   <main>
     <section class="hero">
       <div class="hero-content">
@@ -22,19 +20,18 @@ const recipes = computed(() => recipeData.value?.data || []);
           Autentiske asiatiske <br />
           <span>råvarer & specialiteter</span>
         </h1>
-
         <p>
           Udforsk vores store udvalg af nudler, saucer, snacks og friske varer
           direkte fra Asien. Alt hvad du behøver til dit asiatiske køkken.
         </p>
 
         <div class="hero-buttons">
-          <NuxtLink to="/produkter" class="btn-primary">
+          <NuxtLink to="/products" class="btn-primary">
             Se alle varer →
           </NuxtLink>
 
-          <NuxtLink to="/opskrifter" class="btn-secondary">
-            Madopskrifter
+          <NuxtLink to="/recipes" class="btn-secondary">
+            Madopskrifter →
           </NuxtLink>
         </div>
       </div>
@@ -42,11 +39,11 @@ const recipes = computed(() => recipeData.value?.data || []);
     <section class="udvalgt">
       <div class="header">
         <h2>Udvalgte produkter</h2>
-        <NuxtLink to="/produkter" class="see-all">Se alle →</NuxtLink>
+        <NuxtLink to="/products" class="see-all">Se alle →</NuxtLink>
       </div>
       <div class="udvalgte-produkter">
         <div v-for="product in products" :key="product.id" class="card">
-          <NuxtLink :to="`/produkter/${product.Slug}`">
+          <NuxtLink :to="`/products/${product.Slug}`">
             <img
               :src="
                 product.Image?.[0]?.formats?.small?.url ||
@@ -77,36 +74,36 @@ const recipes = computed(() => recipeData.value?.data || []);
 
       <div class="category-grid">
         <article class="category-card">
-          <img
-            src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?q=80&w=1200&auto=format&fit=crop"
-            alt="Nudler"
-          />
-
-          <div class="overlay"></div>
-
-          <h3>Nudler</h3>
+          <NuxtLink to="/products/category/nudler" class="category-card">
+            <img
+              src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/nudler_bb774519b5.png"
+              alt="Nudler"
+            />
+            <div class="overlay"></div>
+            <h3>Nudler</h3>
+          </NuxtLink>
         </article>
 
         <article class="category-card">
-          <img
-            src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop"
-            alt="Soja"
-          />
-
-          <div class="overlay"></div>
-
-          <h3>Soja / Sauce</h3>
+          <NuxtLink to="/products/category/Soja-&-Sauces" class="category-card">
+            <img
+              src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/sauces_18bc6018f1.png"
+              alt="Soja"
+            />
+            <div class="overlay"></div>
+            <h3>Soja / Sauce</h3>
+          </NuxtLink>
         </article>
 
         <article class="category-card">
-          <img
-            src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=1200&auto=format&fit=crop"
-            alt="Snacks"
-          />
-
-          <div class="overlay"></div>
-
-          <h3>Snacks</h3>
+          <NuxtLink to="/products/category/snacks" class="category-card">
+            <img
+              src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/snacks_3cffed9894.png"
+              alt="Snacks"
+            />
+            <div class="overlay"></div>
+            <h3>Snacks</h3>
+          </NuxtLink>
         </article>
       </div>
     </section>
@@ -116,7 +113,6 @@ const recipes = computed(() => recipeData.value?.data || []);
         <h4 class="label">INSPIRATION</h4>
         <h3>Madopskrifter</h3>
       </div>
-
       <div class="recipe-grid">
         <Recipe
           v-for="recipe in recipes"
@@ -135,15 +131,12 @@ const recipes = computed(() => recipeData.value?.data || []);
     <section class="newsletter">
       <div class="newsletter-content">
         <h2>Hold dig opdateret</h2>
-
         <p>
           Tilmeld dig vores nyhedsbrev og få besked om nye produkter, tilbud og
           opskrifter.
         </p>
-
         <form class="newsletter-form">
           <input type="email" placeholder="Din e-mailadresse" />
-
           <button>
             <Icon name="ph:paper-plane-tilt" class="send-icon" /> Tilmeld
           </button>
@@ -155,9 +148,9 @@ const recipes = computed(() => recipeData.value?.data || []);
 <style scoped>
 /* Hero sektion */
 .hero {
-  padding: 48px;
-  border-radius: 16px;
-  background-color: #f5e1d9;
+  padding: 64px;
+  height: 450px;
+  background-image: url("https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/hero_billede_c6307160f7.png");
   position: relative;
   overflow: hidden;
 }
@@ -190,7 +183,7 @@ h1 span {
 }
 
 .btn-secondary {
-  background: #eee;
+  background: white;
   padding: 12px 20px;
   border-radius: 999px;
   color: black;
@@ -256,7 +249,9 @@ h1 span {
   bottom: 2rem;
   color: white;
 }
-
+.category-card:first-child img {
+  object-position: 75% center;
+}
 .udvalgt {
   padding-top: var(--section-padding-y);
 }
@@ -279,6 +274,7 @@ h1 span {
   padding: var(--space-3xl);
   background: #f3f3f3;
   border-radius: 1rem;
+  margin-bottom: var(--space-3xl);
 }
 
 .newsletter-content {
@@ -318,7 +314,6 @@ h1 span {
   padding-inline: 2rem;
   border: none;
   border-radius: 1.5rem;
-
   background: #ff7300;
   color: white;
 }
@@ -334,8 +329,6 @@ h1 span {
 }
 
 @media (max-width: 768px) {
-  /* HERO */
-
   .hero {
     padding: var(--space-xl);
   }
@@ -349,21 +342,15 @@ h1 span {
     width: fit-content;
   }
 
-  /* SECTION HEADERS */
-
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-sm);
   }
 
-  /* PRODUKTER */
-
   .udvalgte-produkter {
     grid-template-columns: 1fr;
   }
-
-  /* KATEGORIER */
 
   .category-grid {
     grid-template-columns: 1fr;
@@ -373,13 +360,9 @@ h1 span {
     height: 18rem;
   }
 
-  /* RECIPES */
-
   .recipe-grid {
     grid-template-columns: 1fr;
   }
-
-  /* NEWSLETTER */
 
   .newsletter {
     padding: var(--space-xl);

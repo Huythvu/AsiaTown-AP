@@ -7,8 +7,6 @@ const recipes = computed(() => data.value?.data || []);
 </script>
 
 <template>
-  <Navdesk />
-  <Navmobile />
   <main>
     <section class="recipe-hero">
       <div class="overlay"></div>
@@ -79,12 +77,11 @@ const recipes = computed(() => data.value?.data || []);
   position: relative;
   height: 25rem;
   padding: 4rem;
-  background-image: url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop");
+  background-image: url("https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/madopskrifter_6b210d939c.png");
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
-  margin-bottom: -64px;
 }
 
 .hero-content {
@@ -139,11 +136,7 @@ const recipes = computed(() => data.value?.data || []);
 @media (max-width: 768px) {
   .recipe-hero {
     height: 16rem;
-
     padding: var(--space-xl);
-
-    border-radius: 1.5rem;
-
     margin-bottom: 0;
   }
 
@@ -153,9 +146,7 @@ const recipes = computed(() => data.value?.data || []);
 
   .filters {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: var(--space-sm);
   }
 
@@ -170,7 +161,6 @@ const recipes = computed(() => data.value?.data || []);
 
   .recipe-grid {
     grid-template-columns: 1fr;
-
     gap: var(--space-lg);
   }
 }
