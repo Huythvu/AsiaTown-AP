@@ -71,19 +71,23 @@ const contactCards = [
             </div>
 
             <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2220.2239306568927!2d10.1050174!3d56.187807299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464c156aade27517%3A0x5b1609117aa2f528!2sAsiatown!5e0!3m2!1sda!2sdk!4v1779880590055!5m2!1sda!2sdk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2220.2239306568927!2d10.1050174!3d56.187807299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464c156aade27517%3A0x5b1609117aa2f528!2sAsiatown!5e0!3m2!1sda!2sdk!4v1779880590055!5m2!1sda!2sdk"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </section>
     </main>
 </template>
 
 <style scoped>
-header{
+header {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
     margin-bottom: var(--space-lg);
 }
+
 .contact-layout {
     display: grid;
     grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
@@ -114,12 +118,12 @@ header{
     padding: 24px;
 }
 
-.iconify{
+.iconify {
     font-size: 40px;
 }
 
 .info-card p {
-  white-space: pre-line;
+    white-space: pre-line;
 }
 
 .bottom-card {
@@ -128,16 +132,19 @@ header{
     gap: 24px;
     padding: 24px;
 }
-.social-content{
+
+.social-content {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-.socials{
+
+.socials {
     display: flex;
     gap: 16px;
 }
-.gls-content{
+
+.gls-content {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -159,6 +166,7 @@ header{
     .contact-layout {
         grid-template-columns: 1fr;
     }
+
     .map-wrapper {
         height: 300px;
     }
