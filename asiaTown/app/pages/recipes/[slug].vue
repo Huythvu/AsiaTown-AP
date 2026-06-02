@@ -4,7 +4,7 @@ import { ref, computed } from "vue";
 const route = useRoute();
 
 const { data } = await useFetch(
-  `https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?filters[Slug][$eq]=${route.params.slug}&populate=*`
+  `https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?filters[Slug][$eq]=${route.params.slug}&populate=*`,
 );
 
 const recipe = computed(() => data.value?.data[0]);
@@ -87,7 +87,11 @@ const decreasePersons = () => {
         </div>
 
         <div class="ingredient-list">
-          <div v-for="ingredient in calculatedIngredients" :key="ingredient.id" class="ingredient">
+          <div
+            v-for="ingredient in calculatedIngredients"
+            :key="ingredient.id"
+            class="ingredient"
+          >
             <p>{{ ingredient.Ingredient }}</p>
             <span>
               {{ ingredient.calculatedAmount }}
@@ -100,10 +104,16 @@ const decreasePersons = () => {
       <div class="steps">
         <p class="label">FREMGANGSMETODE</p>
         <h2>
-          {{recipe?.Step.filter((step) => step.Instruktion).length}} TRIN
+          {{ recipe?.Step.filter((step) => step.Instruktion).length }} TRIN
         </h2>
-        <div v-for="(step, index) in recipe?.Step.filter((step) => step.Instruktion)" :key="step.id" class="step">
-         <div class="step-title">
+        <div
+          v-for="(step, index) in recipe?.Step.filter(
+            (step) => step.Instruktion,
+          )"
+          :key="step.id"
+          class="step"
+        >
+          <div class="step-title">
             <span class="step-number">
               {{ String(index + 1).padStart(2, "0") }}
             </span>
@@ -120,10 +130,18 @@ const decreasePersons = () => {
     </section>
     <section class="related-products">
       <h2>Relaterede produkter</h2>
-      
+<pre>{{ recipe?.products?.[0] }}</pre>
       <div class="product-grid">
-        <ProductCard v-for="product in recipe?.products" :key="product.id" />
-      </div>
+        <SingleProductCard
+          v-for="product in recipe?.products"
+          :key="product.id"
+          :title="product.Title"
+          :slug="product.Slug"
+          :price="product.Pris"
+          :category="product.kategoriers?.[0]?.Kategori"
+          :image="product.Image?.[0]?.url"
+          :image-small="product.Image?.[0]?.formats?.small?.url"
+  />      </div>
     </section>
   </main>
 </template>
@@ -215,7 +233,6 @@ const decreasePersons = () => {
   border-bottom: 1px solid #ccc;
 }
 
-
 .related-products {
   padding-block: var(--space-3xl);
 }
@@ -226,8 +243,9 @@ const decreasePersons = () => {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: var(--space-xl);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
 }
 
 .step-title {
