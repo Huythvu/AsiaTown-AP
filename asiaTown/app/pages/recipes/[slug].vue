@@ -3,9 +3,27 @@ import { ref, computed } from "vue";
 
 const route = useRoute();
 
+// Fetch recipe og produkter for at kunne vise relaterede produkter i bunden af siden
+
 const { data } = await useFetch(
   `https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/recipes?filters[Slug][$eq]=${route.params.slug}&populate=*`,
 );
+
+const { data: productsData } = await useFetch(
+  "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*",
+);
+
+const relatedProducts = computed(() => {
+  if (!recipe.value?.products || !productsData.value?.data) return [];
+
+  return productsData.value.data.filter((product) =>
+    recipe.value.products.some(
+      (related) => related.documentId === product.documentId,
+    ),
+  );
+});
+
+// Lommeregner for ingredienser baseret på antal personer
 
 const recipe = computed(() => data.value?.data[0]);
 
@@ -128,12 +146,12 @@ const decreasePersons = () => {
         </div>
       </div>
     </section>
-    <section class="related-products">
+    <section v-if="relatedProducts.length" class="related-products">
       <h2>Relaterede produkter</h2>
-<pre>{{ recipe?.products?.[0] }}</pre>
+
       <div class="product-grid">
         <SingleProductCard
-          v-for="product in recipe?.products"
+          v-for="product in relatedProducts"
           :key="product.id"
           :title="product.Title"
           :slug="product.Slug"
@@ -141,7 +159,8 @@ const decreasePersons = () => {
           :category="product.kategoriers?.[0]?.Kategori"
           :image="product.Image?.[0]?.url"
           :image-small="product.Image?.[0]?.formats?.small?.url"
-  />      </div>
+        />
+      </div>
     </section>
   </main>
 </template>

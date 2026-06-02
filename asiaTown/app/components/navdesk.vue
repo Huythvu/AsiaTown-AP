@@ -40,6 +40,7 @@ const filteredProducts = computed(() => {
             v-for="product in filteredProducts"
             :key="product.id"
             :to="`/products/${product.Slug}`"
+            @click="search = ''"
           >
             {{ product.Title }}
           </NuxtLink>
