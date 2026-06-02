@@ -114,6 +114,7 @@ const filteredProducts = computed(() => {
         </NuxtLink>
 
         <div class="dropdown">
+          <NuxtLink to="/products/category/nudler"> Alle nudler </NuxtLink>
           <NuxtLink
             :to="{
               path: '/products/category/nudler',
@@ -138,6 +139,9 @@ const filteredProducts = computed(() => {
           <Icon name="mdi:chevron-down" />
         </NuxtLink>
         <div class="dropdown">
+          <NuxtLink to="/products/category/Soja-&-Sauces">
+            Alle soja & sauces
+          </NuxtLink>
           <NuxtLink
             :to="{
               path: '/products/category/Soja-&-Sauces',
@@ -202,6 +206,7 @@ const filteredProducts = computed(() => {
           <Icon name="mdi:chevron-down" />
         </NuxtLink>
         <div class="dropdown">
+          <NuxtLink to="/products/category/snacks"> Alle snacks </NuxtLink>
           <NuxtLink
             :to="{
               path: '/products/category/snacks',
