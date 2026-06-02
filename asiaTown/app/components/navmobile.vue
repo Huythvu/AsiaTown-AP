@@ -14,10 +14,10 @@ const isOpen = ref(false);
         />
       </NuxtLink>
 
-    <button class="burger-btn" @click="isOpen = !isOpen">
+      <button class="burger-btn" @click="isOpen = !isOpen">
         <Icon v-if="!isOpen" name="mdi:menu" size="40" />
         <Icon v-else name="mdi:close" size="40" />
-    </button>
+      </button>
     </div>
 
     <Transition name="fade">
@@ -26,13 +26,154 @@ const isOpen = ref(false);
 
     <Transition name="slide">
       <nav v-if="isOpen" class="mobile-menu">
-        <NuxtLink to="/" @click="isOpen = false"> Alle varer </NuxtLink>
+        <NuxtLink to="/products" @click="isOpen = false"> Alle varer </NuxtLink>
 
-        <NuxtLink to="/" @click="isOpen = false"> Nudler </NuxtLink>
+        <details>
+          <summary>Nudler</summary>
+          <NuxtLink
+            class="category-link"
+            to="/products/category/nudler"
+            @click="isOpen = false"
+          >
+            Alle nudler
+          </NuxtLink>
+          <NuxtLink
+            :to="{
+              path: '/products/category/nudler',
+              query: { type: 'Instant nudler' },
+            }"
+            @click="isOpen = false"
+          >
+            Instant nudler
+          </NuxtLink>
 
-        <NuxtLink to="/" @click="isOpen = false"> Soja/Sauce </NuxtLink>
+          <NuxtLink
+            :to="{
+              path: '/products/category/nudler',
+              query: { type: 'Udon nudler' },
+            }"
+            @click="isOpen = false"
+          >
+            Udon nudler
+          </NuxtLink>
+        </details>
 
-        <NuxtLink to="/" @click="isOpen = false"> Snacks </NuxtLink>
+        <details>
+          <summary>Soja / Sauce</summary>
+          <NuxtLink
+            class="category-link"
+            to="/products/category/Soja-&-Sauces"
+            @click="isOpen = false"
+          >
+            Alle soja & sauces
+          </NuxtLink>
+          <NuxtLink
+            :to="{
+              path: '/products/category/Soja-&-Sauces',
+              query: { type: 'Chilli' },
+            }"
+            @click="isOpen = false"
+          >
+            Chilli
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{
+              path: '/products/category/Soja-&-Sauces',
+              query: { type: 'Eddike' },
+            }"
+            @click="isOpen = false"
+          >
+            Eddike
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{
+              path: '/products/category/Soja-&-Sauces',
+              query: { type: 'Marinade' },
+            }"
+            @click="isOpen = false"
+          >
+            Marinade
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{
+              path: '/products/category/Soja-&-Sauces',
+              query: { type: 'Mayo' },
+            }"
+            @click="isOpen = false"
+          >
+            Mayo
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{
+              path: '/products/category/Soja-&-Sauces',
+              query: { type: 'Pasta' },
+            }"
+            @click="isOpen = false"
+          >
+            Pasta
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{
+              path: '/products/category/Soja-&-Sauces',
+              query: { type: 'Sauce' },
+            }"
+            @click="isOpen = false"
+          >
+            Sauce
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{
+              path: '/products/category/Soja-&-Sauces',
+              query: { type: 'Soja' },
+            }"
+            @click="isOpen = false"
+          >
+            Soja
+          </NuxtLink>
+        </details>
+
+        <details>
+          <summary>Snacks</summary>
+          <NuxtLink
+            class="category-link"
+            to="/products/category/snacks"
+            @click="isOpen = false"
+          >
+            Alle snacks
+          </NuxtLink>
+          <NuxtLink
+            :to="{
+              path: '/products/category/snacks',
+              query: { type: 'Seaweed' },
+            }"
+            @click="isOpen = false"
+          >
+            Seaweed
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{ path: '/products/category/snacks', query: { type: 'Slik' } }"
+            @click="isOpen = false"
+          >
+            Slik
+          </NuxtLink>
+
+          <NuxtLink
+            :to="{
+              path: '/products/category/snacks',
+              query: { type: 'Tørret frugt' },
+            }"
+            @click="isOpen = false"
+          >
+            Tørret frugt
+          </NuxtLink>
+        </details>
 
         <NuxtLink to="/recipes" @click="isOpen = false">
           Madopskrifter
@@ -47,6 +188,23 @@ const isOpen = ref(false);
 <style scoped>
 .mobile-nav {
   display: none;
+}
+
+.mobile-menu details {
+  margin-bottom: 1rem;
+}
+
+.mobile-menu summary {
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.mobile-menu details a {
+  display: block;
+  margin-top: 0.75rem;
+  margin-left: 1.5rem;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
@@ -73,7 +231,6 @@ const isOpen = ref(false);
     cursor: pointer;
     z-index: 1000;
   }
-
 
   .overlay {
     position: fixed;
@@ -103,8 +260,8 @@ const isOpen = ref(false);
   }
 
   .mobile-menu a:hover {
-  text-decoration: underline;
-}
+    text-decoration: underline;
+  }
 
   .slide-enter-active,
   .slide-leave-active {
