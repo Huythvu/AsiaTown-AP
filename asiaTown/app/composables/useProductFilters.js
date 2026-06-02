@@ -14,6 +14,48 @@ export function useProductFilters(products, options = {}) {
     countries: [],
   })
 
+  const route = useRoute()
+
+watch(
+  () => route.query,
+  (query) => {
+    selectedFilters.value.categories = query.category
+      ? [query.category]
+      : []
+
+    selectedFilters.value.types = query.type
+      ? [query.type]
+      : []
+
+    selectedFilters.value.brands = query.brand
+      ? [query.brand]
+      : []
+
+    selectedFilters.value.countries = query.country
+      ? [query.country]
+      : []
+  },
+  { immediate: true }
+)
+
+onMounted(() => {
+  if (route.query.category) {
+    selectedFilters.value.categories = [route.query.category]
+  }
+
+  if (route.query.type) {
+    selectedFilters.value.types = [route.query.type]
+  }
+
+  if (route.query.brand) {
+    selectedFilters.value.brands = [route.query.brand]
+  }
+
+  if (route.query.country) {
+    selectedFilters.value.countries = [route.query.country]
+  }
+})
+
   const dynamicMaxPrice = computed(() => {
     const prices = products.value
       .map(product => product.Pris)
