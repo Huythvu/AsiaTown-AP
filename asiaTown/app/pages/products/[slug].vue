@@ -174,7 +174,7 @@ const activeTab = ref('beskrivelse')
 }
 
 .related-grid :deep(.swiper-slide) {
-    width: calc(25% - 12.666px);
+    width: calc(25% - 12px);
 }
 
 .recipe,
