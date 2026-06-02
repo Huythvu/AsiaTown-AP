@@ -28,4 +28,10 @@
   align-self: center;
   flex: 1;
 }
+
+@media (max-width: 768px) {
+  .page-main {
+    padding: 16px 32px 0;
+  }
+}
 </style>
