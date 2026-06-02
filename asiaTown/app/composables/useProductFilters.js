@@ -38,24 +38,6 @@ watch(
   { immediate: true }
 )
 
-onMounted(() => {
-  if (route.query.category) {
-    selectedFilters.value.categories = [route.query.category]
-  }
-
-  if (route.query.type) {
-    selectedFilters.value.types = [route.query.type]
-  }
-
-  if (route.query.brand) {
-    selectedFilters.value.brands = [route.query.brand]
-  }
-
-  if (route.query.country) {
-    selectedFilters.value.countries = [route.query.country]
-  }
-})
-
   const dynamicMaxPrice = computed(() => {
     const prices = products.value
       .map(product => product.Pris)
