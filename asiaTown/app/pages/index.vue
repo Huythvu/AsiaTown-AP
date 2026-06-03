@@ -131,14 +131,18 @@ const recipes = computed(() => recipeData.value?.data || []);
     <section class="newsletter">
       <div class="newsletter-content">
         <h2>Hold dig opdateret</h2>
+
         <p>
           Tilmeld dig vores nyhedsbrev og få besked om nye produkter, tilbud og
           opskrifter.
         </p>
+
         <form class="newsletter-form">
-          <input type="email" placeholder="Din e-mailadresse" />
-          <button>
-            <Icon name="ph:paper-plane-tilt" class="send-icon" /> Tilmeld
+          <input type="email" placeholder="Indtast din e-mailadresse" />
+
+          <button type="submit">
+            <Icon name="ph:paper-plane-tilt" class="send-icon" />
+            Tilmeld
           </button>
         </form>
       </div>
@@ -272,8 +276,8 @@ h1 span {
 
 .newsletter {
   padding: var(--space-3xl);
-  background: #f3f3f3;
   border-radius: 1rem;
+  border: 1px solid black;
   margin-bottom: var(--space-3xl);
 }
 
@@ -299,12 +303,13 @@ h1 span {
   padding: 1.5rem 2rem;
   border: none;
   border-radius: 1.5rem;
-  background: #b3b3b3;
-  color: white;
+  background: white;
+  border: 1px solid black;
+  color: black;
 }
 
 .newsletter-form input::placeholder {
-  color: white;
+  color: BLACK;
 }
 
 .newsletter-form button {
