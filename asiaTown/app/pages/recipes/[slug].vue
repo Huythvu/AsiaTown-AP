@@ -204,7 +204,7 @@ const decreasePersons = () => {
 .recipe-image img {
   max-height: 400px;
   border-radius: 1rem;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 .recipe-content {

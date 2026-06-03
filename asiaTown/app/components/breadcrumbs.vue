@@ -30,7 +30,7 @@ const breadcrumbs = computed(() =>
   display: flex;
   align-items: center;
   gap: var(--breadcrumb-gap);
-  padding: 1rem var(--space-3xl);
+  padding: 0rem var(--space-3xl);
   font-size: var(--breadcrumb-font-size);
   font-weight: var(--weight-breadcrumb);
   color: #666;

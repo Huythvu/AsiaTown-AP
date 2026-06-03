@@ -204,10 +204,4 @@ section {
   justify-content: space-between;
   font-size: var(--font-small);
 }
-
-@media (max-width: 768px) {
-  .product-filter {
-    display: none;
-  }
-}
 </style>

@@ -1,7 +1,7 @@
 <script setup>
 const { data, error } = await useFetch(
   "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*"
-);
+)
 
 const products = computed(() => data.value?.data || [])
 
@@ -32,26 +32,39 @@ const {
     </header>
 
     <section class="product-layout">
-      
-      <ProductFilter
-      :filter-groups="filterGroups"
-      :selected-filters="selectedFilters"
-      :selected-max-price="selectedMaxPrice"
-      :min-price="minPrice"
-      :max-price="maxPrice"
-      :has-active-filters="hasActiveFilters"
-      :active-filter-count="activeFilterCount"
-      @update:selected-filters="selectedFilters = $event"
-      @update:selected-max-price="selectedMaxPrice = $event"
-      @reset="resetFilters"
-/>
+      <div class="desktop-filter">
+        <ProductFilter
+          :filter-groups="filterGroups"
+          :selected-filters="selectedFilters"
+          :selected-max-price="selectedMaxPrice"
+          :min-price="minPrice"
+          :max-price="maxPrice"
+          :has-active-filters="hasActiveFilters"
+          :active-filter-count="activeFilterCount"
+          @update:selected-filters="selectedFilters = $event"
+          @update:selected-max-price="selectedMaxPrice = $event"
+          @reset="resetFilters"
+        />
+      </div>
+
       <div class="product-content">
         <div class="toolbar">
           <p class="product-count">{{ filteredProducts.length }} produkter</p>
-          <button class="mobile-filter-button" type="button">
-            <Icon name="teenyicons:adjust-horizontal-solid" />
-            Filtre
-          </button>
+
+          <MobileFilter>
+            <ProductFilter
+              :filter-groups="filterGroups"
+              :selected-filters="selectedFilters"
+              :selected-max-price="selectedMaxPrice"
+              :min-price="minPrice"
+              :max-price="maxPrice"
+              :has-active-filters="hasActiveFilters"
+              :active-filter-count="activeFilterCount"
+              @update:selected-filters="selectedFilters = $event"
+              @update:selected-max-price="selectedMaxPrice = $event"
+              @reset="resetFilters"
+            />
+          </MobileFilter>
 
           <div class="sort">
             <Icon name="tabler:arrows-sort" />
@@ -64,14 +77,22 @@ const {
         </div>
 
         <div v-if="filteredProducts.length > 0" class="product-list">
-          <SingleProductCard v-for="product in filteredProducts" :key="product.id" :title="product.Title"
-            :slug="product.Slug" :price="product.Pris"
-            :category="product.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'" :image="product.Image?.[0]?.url"
-            :image-small="product.Image?.[0]?.formats?.small?.url" />
+          <SingleProductCard
+            v-for="product in filteredProducts"
+            :key="product.id"
+            :title="product.Title"
+            :slug="product.Slug"
+            :price="product.Pris"
+            :category="product.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'"
+            :image="product.Image?.[0]?.url"
+            :image-small="product.Image?.[0]?.formats?.small?.url"
+          />
         </div>
+
         <div v-else-if="error">
           <p>Der skete en fejl med at hente produkter.</p>
         </div>
+
         <div v-else>
           <p>Ingen produkter tilgængelige.</p>
         </div>
@@ -94,11 +115,8 @@ header {
   gap: var(--space-lg);
 }
 
-.filter-text {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
+.desktop-filter {
+  display: block;
 }
 
 .product-content {
@@ -111,10 +129,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.iconify {
-  font-size: var(--font-body);
 }
 
 .sort {
@@ -136,40 +150,17 @@ header {
   gap: 24px;
 }
 
-.mobile-search {
-  display: none;
-}
-
-.mobile-filter-button {
-  display: none;
-}
-
-/* MOBILE VERSION */
 @media (max-width: 768px) {
-
   header {
     gap: var(--space-sm);
     margin-bottom: var(--space-md);
-  }
-
-  .mobile-search input {
-    width: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: var(--font-body);
-  }
-
-  .mobile-search input::placeholder {
-    color: #1a1a1a;
-    opacity: 1;
   }
 
   .product-layout {
     display: block;
   }
 
-  .filter {
+  .desktop-filter {
     display: none;
   }
 
@@ -184,19 +175,6 @@ header {
     align-items: center;
   }
 
-  .mobile-filter-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    padding: 8px;
-    border: 1px solid #1a1a1a;
-    border-radius: 6px;
-    background: white;
-    font-size: var(--font-body);
-    order: 1;
-  }
-
   .sort {
     order: 2;
     justify-self: end;
@@ -208,7 +186,7 @@ header {
   }
 
   .product-list {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 24px;
   }
 }

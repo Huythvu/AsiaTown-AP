@@ -8,10 +8,8 @@ const isOpen = ref(false);
   <header class="mobile-nav">
     <div class="nav-top">
       <NuxtLink to="/" class="logo">
-        <img
-          src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/asia_Town_1_456a806ff1.png"
-          alt="Asia Town logo"
-        />
+        <img src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/asia_Town_1_456a806ff1.png"
+          alt="Asia Town logo" />
       </NuxtLink>
 
       <button class="burger-btn" @click="isOpen = !isOpen">
@@ -30,147 +28,99 @@ const isOpen = ref(false);
 
         <details>
           <summary>Nudler</summary>
-          <NuxtLink
-            class="category-link"
-            to="/products/category/nudler"
-            @click="isOpen = false"
-          >
+          <NuxtLink class="category-link" to="/products/category/nudler" @click="isOpen = false">
             Alle nudler
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/nudler',
-              query: { type: 'Instant nudler' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/nudler',
+            query: { type: 'Instant nudler' },
+          }" @click="isOpen = false">
             Instant nudler
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/nudler',
-              query: { type: 'Udon nudler' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/nudler',
+            query: { type: 'Udon nudler' },
+          }" @click="isOpen = false">
             Udon nudler
           </NuxtLink>
         </details>
 
         <details>
           <summary>Soja / Sauce</summary>
-          <NuxtLink
-            class="category-link"
-            to="/products/category/Soja-&-Sauces"
-            @click="isOpen = false"
-          >
+          <NuxtLink class="category-link" to="/products/category/Soja-&-Sauces" @click="isOpen = false">
             Alle soja & sauces
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Chilli' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Chilli' },
+          }" @click="isOpen = false">
             Chilli
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Eddike' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Eddike' },
+          }" @click="isOpen = false">
             Eddike
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Marinade' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Marinade' },
+          }" @click="isOpen = false">
             Marinade
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Mayo' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Mayo' },
+          }" @click="isOpen = false">
             Mayo
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Pasta' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Pasta' },
+          }" @click="isOpen = false">
             Pasta
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Sauce' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Sauce' },
+          }" @click="isOpen = false">
             Sauce
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Soja' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Soja' },
+          }" @click="isOpen = false">
             Soja
           </NuxtLink>
         </details>
 
         <details>
           <summary>Snacks</summary>
-          <NuxtLink
-            class="category-link"
-            to="/products/category/snacks"
-            @click="isOpen = false"
-          >
+          <NuxtLink class="category-link" to="/products/category/snacks" @click="isOpen = false">
             Alle snacks
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/snacks',
-              query: { type: 'Seaweed' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/snacks',
+            query: { type: 'Seaweed' },
+          }" @click="isOpen = false">
             Seaweed
           </NuxtLink>
 
-          <NuxtLink
-            :to="{ path: '/products/category/snacks', query: { type: 'Slik' } }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{ path: '/products/category/snacks', query: { type: 'Slik' } }" @click="isOpen = false">
             Slik
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products/category/snacks',
-              query: { type: 'Tørret frugt' },
-            }"
-            @click="isOpen = false"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/snacks',
+            query: { type: 'Tørret frugt' },
+          }" @click="isOpen = false">
             Tørret frugt
           </NuxtLink>
         </details>
@@ -212,6 +162,7 @@ const isOpen = ref(false);
     display: block;
     padding: var(--space-md);
     border-bottom: 1px solid #ddd;
+    margin-bottom: var(--space-xl);
   }
 
   .nav-top {
@@ -235,7 +186,8 @@ const isOpen = ref(false);
   .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.2); /* Gør baggrunden mørkere */
+    background: rgba(0, 0, 0, 0.2);
+    /* Gør baggrunden mørkere */
     backdrop-filter: blur(8px);
     z-index: 998;
   }
