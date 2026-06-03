@@ -113,8 +113,8 @@ const recipes = computed(() => recipeData.value?.data || []);
         <h4 class="label">INSPIRATION</h4>
         <h3>Madopskrifter</h3>
       </div>
-      <div class="recipe-grid">
-        <Recipe
+      <div class="recipe-grid" >
+        <Recipe class="recipe-cards"
           v-for="recipe in recipes"
           :key="recipe.id"
           :title="recipe.Title"
@@ -240,6 +240,11 @@ h1 span {
   position: relative;
   overflow: hidden;
   border-radius: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
 }
 
 .category-card img {
@@ -264,6 +269,16 @@ h1 span {
   color: #e94e3c;
   font-weight: 500;
   text-decoration: none;
+}
+
+.recipe-cards {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.recipe-cards:hover {
+  transform: translateY(-8px);
 }
 
 .recipe-grid {

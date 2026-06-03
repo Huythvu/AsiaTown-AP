@@ -56,7 +56,7 @@ const recipes = computed(() => data.value?.data || []);
         </div>
       </div>
       <div class="recipe-grid">
-        <Recipe
+        <Recipe class="recipe-cards"
           v-for="recipe in recipes"
           :key="recipe.id"
           :title="recipe.Title"
@@ -131,6 +131,16 @@ const recipes = computed(() => data.value?.data || []);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-xl);
+}
+
+.recipe-cards {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.recipe-cards:hover {
+  transform: translateY(-8px);
 }
 
 @media (max-width: 768px) {
