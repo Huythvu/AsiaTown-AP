@@ -8,14 +8,16 @@ defineProps(['items'])
 </script>
 
 <template>
-  <swiper
-    :modules="[Navigation]"
-    :slides-per-view="'auto'"
-    :space-between="16"
-    navigation
-  >
+  <swiper :modules="[Navigation]" :slides-per-view="'auto'" :space-between="16" navigation>
     <swiper-slide v-for="item in items" :key="item.id">
       <slot :item="item" />
     </swiper-slide>
   </swiper>
 </template>
+
+<style scoped>
+.swiper-slide {
+  height: auto;
+  display: flex;
+}
+</style>

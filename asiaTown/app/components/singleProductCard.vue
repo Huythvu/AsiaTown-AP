@@ -33,10 +33,12 @@ main {
 }
 
 .product-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid red;
-    border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border: 1px solid lightgray;
+  border-radius: 6px;
 }
 
 .image-wrapper {
@@ -45,7 +47,7 @@ main {
     overflow: hidden;
     background-color: #ffffff;
     border-radius: 6px 6px 0 0;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid lightgray;
 }
 
 .product-image {
@@ -55,10 +57,11 @@ main {
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+  gap: 16px;
 }
 
 .category {
@@ -75,6 +78,7 @@ main {
 }
 
 .price {
-    font-size: var(--font-h4-desktop);
+  font-size: var(--font-h4-desktop);
+  margin-top: auto;
 }
 </style>

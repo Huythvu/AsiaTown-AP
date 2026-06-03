@@ -1,4 +1,6 @@
 <script setup>
+import MySwiper from '~/components/swiper/MySwiper.vue'
+
 const { data } = await useFetch(
   "https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products?populate=*&pagination[limit]=8",
 );
@@ -36,33 +38,18 @@ const recipes = computed(() => recipeData.value?.data || []);
         </div>
       </div>
     </section>
+
     <section class="udvalgt">
       <div class="header">
         <h2>Udvalgte produkter</h2>
         <NuxtLink to="/products" class="see-all">Se alle →</NuxtLink>
       </div>
-      <div class="udvalgte-produkter">
-        <div v-for="product in products" :key="product.id" class="card">
-          <NuxtLink :to="`/products/${product.Slug}`">
-            <img
-              :src="
-                product.Image?.[0]?.formats?.small?.url ||
-                product.Image?.[0]?.url
-              "
-              :alt="product.Title"
-            />
-
-            <div class="card-content">
-              <p class="kategori">
-                {{ product.kategorier?.[0]?.Kategori }}
-              </p>
-
-              <h4>{{ product.Title }}</h4>
-
-              <p class="price">{{ product.Pris }} kr.</p>
-            </div>
-          </NuxtLink>
-        </div>
+      <div class="udvalgte-grid">
+        <MySwiper :items="products" v-slot="{ item }">
+          <SingleProductCard :title="item.Title" :slug="item.Slug" :price="item.Pris"
+            :category="item.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'" :image="item.Image?.[0]?.url"
+            :image-small="item.Image?.[0]?.formats?.small?.url" />
+        </MySwiper>
       </div>
     </section>
 
@@ -75,10 +62,7 @@ const recipes = computed(() => recipeData.value?.data || []);
       <div class="category-grid">
         <article class="category-card">
           <NuxtLink to="/products/category/nudler" class="category-card">
-            <img
-              src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/nudler_bb774519b5.png"
-              alt="Nudler"
-            />
+            <img src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/nudler_bb774519b5.png" alt="Nudler" />
             <div class="overlay"></div>
             <h3>Nudler</h3>
           </NuxtLink>
@@ -86,10 +70,7 @@ const recipes = computed(() => recipeData.value?.data || []);
 
         <article class="category-card">
           <NuxtLink to="/products/category/Soja-&-Sauces" class="category-card">
-            <img
-              src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/sauces_18bc6018f1.png"
-              alt="Soja"
-            />
+            <img src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/sauces_18bc6018f1.png" alt="Soja" />
             <div class="overlay"></div>
             <h3>Soja / Sauce</h3>
           </NuxtLink>
@@ -97,10 +78,7 @@ const recipes = computed(() => recipeData.value?.data || []);
 
         <article class="category-card">
           <NuxtLink to="/products/category/snacks" class="category-card">
-            <img
-              src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/snacks_3cffed9894.png"
-              alt="Snacks"
-            />
+            <img src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/snacks_3cffed9894.png" alt="Snacks" />
             <div class="overlay"></div>
             <h3>Snacks</h3>
           </NuxtLink>
@@ -113,18 +91,11 @@ const recipes = computed(() => recipeData.value?.data || []);
         <h4 class="label">INSPIRATION</h4>
         <h3>Madopskrifter</h3>
       </div>
-      <div class="recipe-grid" >
-        <Recipe class="recipe-cards"
-          v-for="recipe in recipes"
-          :key="recipe.id"
-          :title="recipe.Title"
-          :slug="recipe.Slug"
-          :description="recipe.Description"
-          :image="recipe.Image[0]?.url"
-          :time="`${recipe.Tid.Tid} ${recipe.Tid.Unit}`"
-          :persons="recipe.AntalPersoner"
-          :difficulty="recipe.Difficulty"
-        />
+      <div class="recipe-grid">
+        <Recipe class="recipe-cards" v-for="recipe in recipes" :key="recipe.id" :title="recipe.Title"
+          :slug="recipe.Slug" :description="recipe.Description" :image="recipe.Image[0]?.url"
+          :time="`${recipe.Tid.Tid} ${recipe.Tid.Unit}`" :persons="recipe.AntalPersoner"
+          :difficulty="recipe.Difficulty" />
       </div>
     </section>
 
@@ -194,21 +165,18 @@ h1 span {
   text-decoration: none;
 }
 
-.udvalgte-produkter {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-md);
+.udvalgte-grid {
+  width: 100%;
 }
 
-.card {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  transition: 0.2s;
+.udvalgte-grid :deep(.swiper) {
+  width: 100%;
 }
 
-.card-content {
-  padding: 16px;
+.udvalgte-grid :deep(.swiper-slide) {
+  width: calc(25% - 12px);
 }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -258,9 +226,11 @@ h1 span {
   bottom: 2rem;
   color: white;
 }
+
 .category-card:first-child img {
   object-position: 75% center;
 }
+
 .udvalgt {
   padding-top: var(--section-padding-y);
 }
@@ -368,8 +338,8 @@ h1 span {
     gap: var(--space-sm);
   }
 
-  .udvalgte-produkter {
-    grid-template-columns: 1fr;
+  .udvalgte-grid :deep(.swiper-slide) {
+    width: 100%;
   }
 
   .category-grid {
