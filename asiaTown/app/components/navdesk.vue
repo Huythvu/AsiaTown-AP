@@ -27,21 +27,15 @@ const filteredProducts = computed(() => {
     <!-- Top navigation -->
     <div class="nav-top">
       <NuxtLink to="/" class="logo">
-        <img
-          src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/asia_Town_1_456a806ff1.png"
-          alt="Asia Town logo"
-        />
+        <img src="https://diplomatic-friend-1bce2a96ef.media.strapiapp.com/asia_Town_1_456a806ff1.png"
+          alt="Asia Town logo" />
       </NuxtLink>
 
       <div class="search">
         <input v-model="search" type="search" placeholder="Søg i vores butik" />
         <div v-if="search.length > 1" class="search-results">
-          <NuxtLink
-            v-for="product in filteredProducts"
-            :key="product.id"
-            :to="`/products/${product.Slug}`"
-            @click="search = ''"
-          >
+          <NuxtLink v-for="product in filteredProducts" :key="product.id" :to="`/products/${product.Slug}`"
+            @click="search = ''">
             {{ product.Title }}
           </NuxtLink>
         </div>
@@ -59,49 +53,39 @@ const filteredProducts = computed(() => {
           <Icon name="mdi:chevron-down" />
         </NuxtLink>
         <div class="dropdown">
-          <NuxtLink
-            :to="{
-              path: '/products',
-              query: { category: 'Frosne Varer' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products',
+            query: { category: 'Frosne Varer' },
+          }">
             Frosne varer
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products',
-              query: { category: 'Friske Varer' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products',
+            query: { category: 'Friske Varer' },
+          }">
             Friske varer
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products',
-              query: { category: 'Snacks' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products',
+            query: { category: 'Snacks' },
+          }">
             Snacks
           </NuxtLink>
 
-          <NuxtLink
-            :to="{
-              path: '/products',
-              query: { category: 'Soja-&-Sauces' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products',
+            query: { category: 'Soja-&-Sauces' },
+          }">
             Soja & Sauces
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products',
-              query: {
-                category: 'Nudler',
-              },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products',
+            query: {
+              category: 'Nudler',
+            },
+          }">
             Nudler
           </NuxtLink>
         </div>
@@ -115,20 +99,16 @@ const filteredProducts = computed(() => {
 
         <div class="dropdown">
           <NuxtLink to="/products/category/nudler"> Alle nudler </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/nudler',
-              query: { type: 'Instant nudler' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/nudler',
+            query: { type: 'Instant nudler' },
+          }">
             Instant nudler
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/nudler',
-              query: { type: 'Udon nudler' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/nudler',
+            query: { type: 'Udon nudler' },
+          }">
             Udon nudler
           </NuxtLink>
         </div>
@@ -142,60 +122,46 @@ const filteredProducts = computed(() => {
           <NuxtLink to="/products/category/Soja-&-Sauces">
             Alle soja & sauces
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Chilli' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Chilli' },
+          }">
             Chilli
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Eddike' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Eddike' },
+          }">
             Eddike
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Marinade' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Marinade' },
+          }">
             Marinade
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Mayo' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Mayo' },
+          }">
             Mayo
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Pasta' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Pasta' },
+          }">
             Pasta
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Sauce' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Sauce' },
+          }">
             Sauce
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/Soja-&-Sauces',
-              query: { type: 'Soja' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/Soja-&-Sauces',
+            query: { type: 'Soja' },
+          }">
             Soja
           </NuxtLink>
         </div>
@@ -207,33 +173,29 @@ const filteredProducts = computed(() => {
         </NuxtLink>
         <div class="dropdown">
           <NuxtLink to="/products/category/snacks"> Alle snacks </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/snacks',
-              query: { type: 'Seaweed' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/snacks',
+            query: { type: 'Seaweed' },
+          }">
             Seaweed
           </NuxtLink>
-          <NuxtLink
-            :to="{ path: '/products/category/snacks', query: { type: 'Slik' } }"
-          >
+          <NuxtLink :to="{ path: '/products/category/snacks', query: { type: 'Slik' } }">
             Slik
           </NuxtLink>
-          <NuxtLink
-            :to="{
-              path: '/products/category/snacks',
-              query: { type: 'Tørret frugt' },
-            }"
-          >
+          <NuxtLink :to="{
+            path: '/products/category/snacks',
+            query: { type: 'Tørret frugt' },
+          }">
             Tørret frugt
           </NuxtLink>
         </div>
       </div>
-
-      <NuxtLink to="/recipes"> Madopskrifter </NuxtLink>
-
-      <NuxtLink to="/kontakt"> Kontakt </NuxtLink>
+      <div class="nav-item">
+        <NuxtLink to="/recipes"> Madopskrifter </NuxtLink>
+      </div>
+      <div class="nav-item">
+        <NuxtLink to="/kontakt"> Kontakt </NuxtLink>
+      </div>
     </nav>
   </header>
 </template>
@@ -350,6 +312,10 @@ const filteredProducts = computed(() => {
 }
 
 .dropdown a:hover {
+  text-decoration: underline;
+}
+
+.nav-item:hover>a {
   text-decoration: underline;
 }
 
