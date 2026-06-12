@@ -33,18 +33,11 @@ const {
 
     <section class="product-layout">
       <div class="desktop-filter">
-        <ProductFilter
-          :filter-groups="filterGroups"
-          :selected-filters="selectedFilters"
-          :selected-max-price="selectedMaxPrice"
-          :min-price="minPrice"
-          :max-price="maxPrice"
-          :has-active-filters="hasActiveFilters"
-          :active-filter-count="activeFilterCount"
-          @update:selected-filters="selectedFilters = $event"
-          @update:selected-max-price="selectedMaxPrice = $event"
-          @reset="resetFilters"
-        />
+        <ProductFilter :filter-groups="filterGroups" :selected-filters="selectedFilters"
+          :selected-max-price="selectedMaxPrice" :min-price="minPrice" :max-price="maxPrice"
+          :has-active-filters="hasActiveFilters" :active-filter-count="activeFilterCount"
+          @update:selected-filters="selectedFilters = $event" @update:selected-max-price="selectedMaxPrice = $event"
+          @reset="resetFilters" />
       </div>
 
       <div class="product-content">
@@ -52,18 +45,11 @@ const {
           <p class="product-count">{{ filteredProducts.length }} produkter</p>
 
           <MobileFilter>
-            <ProductFilter
-              :filter-groups="filterGroups"
-              :selected-filters="selectedFilters"
-              :selected-max-price="selectedMaxPrice"
-              :min-price="minPrice"
-              :max-price="maxPrice"
-              :has-active-filters="hasActiveFilters"
-              :active-filter-count="activeFilterCount"
-              @update:selected-filters="selectedFilters = $event"
-              @update:selected-max-price="selectedMaxPrice = $event"
-              @reset="resetFilters"
-            />
+            <ProductFilter :filter-groups="filterGroups" :selected-filters="selectedFilters"
+              :selected-max-price="selectedMaxPrice" :min-price="minPrice" :max-price="maxPrice"
+              :has-active-filters="hasActiveFilters" :active-filter-count="activeFilterCount"
+              @update:selected-filters="selectedFilters = $event" @update:selected-max-price="selectedMaxPrice = $event"
+              @reset="resetFilters" />
           </MobileFilter>
 
           <div class="sort">
@@ -77,16 +63,10 @@ const {
         </div>
 
         <div v-if="filteredProducts.length > 0" class="product-list">
-          <SingleProductCard
-            v-for="product in filteredProducts"
-            :key="product.id"
-            :title="product.Title"
-            :slug="product.Slug"
-            :price="product.Pris"
-            :category="product.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'"
-            :image="product.Image?.[0]?.url"
-            :image-small="product.Image?.[0]?.formats?.small?.url"
-          />
+          <SingleProductCard v-for="product in filteredProducts" :key="product.id" :id="product.id"
+            :title="product.Title" :slug="product.Slug" :price="product.Pris"
+            :category="product.kategoriers?.[0]?.Kategori ?? 'Ukategoriseret'" :image="product.Image?.[0]?.url"
+            :image-small="product.Image?.[0]?.formats?.small?.url" />
         </div>
 
         <div v-else-if="error">
