@@ -1,37 +1,41 @@
 <script setup>
 import MySwiper from '~/components/swiper/MySwiper.vue'
-
 const route = useRoute()
 const BASE = 'https://diplomatic-friend-1bce2a96ef.strapiapp.com/api/products'
 
 const { data } = await useFetch(BASE, {
-  key: `product-${route.params.slug}`,
-  query: computed(() => ({
-    'filters[Slug][$eq]': route.params.slug,
-    'populate[Image]': true,
-    'populate[brand]': true,
-    'populate[kategoriers]': true,
-    'populate[land]': true,
-    'populate[types]': true,
-    'populate[recipes][populate][Image]': true,
-  })),
+    key: `product-${route.params.slug}`,
+    query: computed(() => ({
+        'filters[Slug][$eq]': route.params.slug,
+        'populate[Image]': true,
+        'populate[brand]': true,
+        'populate[kategoriers]': true,
+        'populate[land]': true,
+        'populate[types]': true,
+        'populate[recipes][populate][Image]': true,
+    })),
 })
 
 const product = computed(() => data.value?.data?.[0] || null)
+
+useSeoMeta({
+    title: () => `${product.value?.Title || "Produkt"} | Asia Town`,
+    description: () => product.value?.ProduktBeskrivelse,
+})
 
 if (!product.value) {
     throw createError({ statusCode: 404, statusMessage: 'Produkt ikke fundet' })
 }
 
 const { data: relatedData } = await useFetch(BASE, {
-  key: `related-${route.params.slug}`,
-  query: computed(() => ({
-    'filters[kategoriers][Kategori][$eq]':
-      product.value?.kategoriers?.[0]?.Kategori,
-    'filters[Slug][$ne]': route.params.slug,
-    populate: '*',
-    'pagination[limit]': 8,
-  })),
+    key: `related-${route.params.slug}`,
+    query: computed(() => ({
+        'filters[kategoriers][Kategori][$eq]':
+            product.value?.kategoriers?.[0]?.Kategori,
+        'filters[Slug][$ne]': route.params.slug,
+        populate: '*',
+        'pagination[limit]': 8,
+    })),
 })
 
 const relatedProducts = computed(() => relatedData.value?.data || [])
@@ -92,25 +96,25 @@ const activeTab = ref('beskrivelse')
 
 <style scoped>
 .breadcrumbs {
-  margin-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
 }
 
 .product {
-  display: grid;
-  grid-template-columns: minmax(300px, 1.2fr) minmax(300px, 1fr);
-  gap: clamp(32px, 5vw, 64px);
+    display: grid;
+    grid-template-columns: minmax(300px, 1.2fr) minmax(300px, 1fr);
+    gap: clamp(32px, 5vw, 64px);
 }
 
 .product-img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-img img {
-  max-width: 60%;
-  height: auto;
-  object-fit: contain;
+    max-width: 60%;
+    height: auto;
+    object-fit: contain;
 }
 
 .product-info {
@@ -125,8 +129,8 @@ const activeTab = ref('beskrivelse')
 }
 
 .price {
-  font-size: var(--font-h3-desktop);
-  font-weight: var(--weight-semibold);
+    font-size: var(--font-h3-desktop);
+    font-weight: var(--weight-semibold);
 }
 
 .tabs {
@@ -137,13 +141,13 @@ const activeTab = ref('beskrivelse')
 }
 
 .tabs button {
-  position: relative;
-  padding: 16px 0 12px;
-  border: 0;
-  background: none;
-  font-size: var(--font-h4-desktop);
-  font-weight: var(--weight-medium);
-  cursor: pointer;
+    position: relative;
+    padding: 16px 0 12px;
+    border: 0;
+    background: none;
+    font-size: var(--font-h4-desktop);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
 }
 
 .tabs .active::after {
@@ -163,10 +167,10 @@ const activeTab = ref('beskrivelse')
 }
 
 .recipe-grid img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  border-radius: 6px;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .recipe-grid :deep(.swiper-slide) {
