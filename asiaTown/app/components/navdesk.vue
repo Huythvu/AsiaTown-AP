@@ -8,19 +8,37 @@ const { data } = await useFetch(
 );
 
 const products = computed(() => data.value?.data || []);
+/* 
+  ITERATION: Search feedback
+  We changed the search from a computed() result to a watch-based search.
+  This makes it possible to show a 0.5 second loading state and a no-results message.
+*/
+const searchResults = ref([]);
+const isSearching = ref(false);
+let searchTimeout = null;
 
-const filteredProducts = computed(() => {
-  if (!search.value.trim()) return [];
+watch(search, (newSearch) => {
+  clearTimeout(searchTimeout);
+  
+  isSearching.value = true;
 
-  const fuse = new Fuse(products.value, {
-    keys: ["Title", "kategoriers.Kategori"],
-    threshold: 0.3,
-  });
+  searchTimeout = setTimeout(() => {
+    const fuse = new Fuse(products.value, {
+      keys: ["Title", "kategoriers.Kategori"],
+      threshold: 0.3,
+    });
 
-  const results = fuse.search(search.value);
+    const results = fuse.search(newSearch);
 
-  return results.map((result) => result.item);
+    searchResults.value = results.map((result) => result.item);
+    isSearching.value = false;
+  }, 500);
 });
+
+onUnmounted(() => {
+  clearTimeout(searchTimeout);
+});
+
 </script>
 <template>
   <header class="navbar">
@@ -33,17 +51,33 @@ const filteredProducts = computed(() => {
 
       <div class="search">
         <input v-model="search" type="search" placeholder="Søg i vores butik" />
-        <div v-if="search.length > 1" class="search-results">
-          <NuxtLink v-for="product in filteredProducts" :key="product.id" :to="`/products/${product.Slug}`"
-            @click="search = ''">
-            {{ product.Title }}
-          </NuxtLink>
-        </div>
+        <!--  -->
+        <!-- Iteration -->
+        <!--  -->
+        <Transition name="search-pop">
+          <div v-if="search.length > 1" class="search-results">
+            <p v-if="isSearching" class="search-feedback">
+              Søger...
+            </p>
+            <template v-else-if="searchResults.length > 0">
+              <NuxtLink v-for="product in searchResults" :key="product.id" :to="`/products/${product.Slug}`"
+                @click="search = ''">
+                {{ product.Title }}
+              </NuxtLink>
+            </template>
+            <p v-else class="search-feedback">
+              Ingen resultater fundet
+            </p>
+          </div>
+        </Transition>
+
         <button>
           <Icon name="mdi:magnify" class="search-icon" />
         </button>
       </div>
     </div>
+
+
 
     <!-- Main navigation -->
     <nav class="nav-bottom">
@@ -327,5 +361,27 @@ const filteredProducts = computed(() => {
   .navbar {
     display: none;
   }
+}
+
+/*  */
+/* Iteration */
+/*  */
+.search-pop-enter-active,
+.search-pop-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.search-pop-enter-from,
+.search-pop-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.search-feedback {
+  padding: 1rem 1.5rem;
+  margin: 0;
+  color: #555;
 }
 </style>

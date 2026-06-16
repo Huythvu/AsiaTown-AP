@@ -22,6 +22,24 @@ const {
   showCountryFilter: true,
   minPrice: 0,
 })
+
+const sortBy = ref("popular");
+
+const sortedProducts = computed(() => {
+  const list = [...filteredProducts.value];
+
+  if (sortBy.value === "az") {
+    list.sort((a, b) => a.Title.localeCompare(b.Title, "da"));
+  } else if (sortBy.value === "price-low") {
+    list.sort((a, b) => a.Pris - b.Pris);
+  } else if (sortBy.value === "price-high") {
+    list.sort((a, b) => b.Pris - a.Pris);
+  }
+
+  return list;
+});
+
+
 </script>
 
 <template>
@@ -49,7 +67,7 @@ const {
 
       <div class="product-content">
         <div class="toolbar">
-          <p class="product-count">{{ filteredProducts.length }} produkter</p>
+          <p class="product-count">{{ sortedProducts.length }} produkter</p>
 
           <MobileFilter>
             <ProductFilter
@@ -68,17 +86,18 @@ const {
 
           <div class="sort">
             <Icon name="tabler:arrows-sort" />
-            <Select>
+            <select v-model="sortBy">
               <option value="popular">Mest Populære</option>
               <option value="az">A-Z</option>
-              <option value="category">Kategori</option>
-            </Select>
+              <option value="price-low">Pris (lav til høj)</option>
+              <option value="price-high">Pris (høj til lav)</option>
+            </select>
           </div>
         </div>
 
-        <div v-if="filteredProducts.length > 0" class="product-list">
+        <div v-if="sortedProducts.length > 0" class="product-list">
           <SingleProductCard
-            v-for="product in filteredProducts"
+            v-for="product in sortedProducts"
             :key="product.id"
             :title="product.Title"
             :slug="product.Slug"

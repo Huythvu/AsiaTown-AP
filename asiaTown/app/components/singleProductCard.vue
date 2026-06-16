@@ -81,4 +81,15 @@ main {
   font-size: var(--font-h4-desktop);
   margin-top: auto;
 }
+
+/*  */
+/* Iteration */
+/*  */
+.product-image {
+  transition: transform 0.25s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.1);
+}
 </style>
